@@ -36,7 +36,17 @@
 - 4개의 jar 파일 WEB-INF/lib 폴더에 넣기
 ### Jquery
 - <a href="https://jquery.com/">다운 링크</a>
-<br>
+### DBMS
+- MariaDB
+    - 10.5.8
+    - HeidiSQL
+- JDBC Driver
+    - mariadb-java-client-2.6.0.jar
+        - Java Resources's Libraries 등록
+            - [Eclipse] - [ProjectName] - [BuildPath] - [Libraries] -
+            - [ClassPath] - [Add Library...] - [User Libraries...] - [Add JARs]
+        - WebContent 등록
+            - 폴더로 드래그
 
 ---
 

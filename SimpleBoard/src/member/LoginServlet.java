@@ -1,6 +1,7 @@
 package member;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import util.JDBC;
+import util.MyUtil;
+
 /**
- * 로그인 진행
- * Servlet implementation class login
+ * 로그인 진행 Servlet implementation class login
  */
 @WebServlet(name = "login", urlPatterns = { "/login" })
 public class LoginServlet extends HttpServlet {
@@ -43,34 +46,25 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(id + ", " + passwd);
 
 			// 아이디, 비밀번호 조회
-			boolean ret = select(id, passwd);
+			String query = "SELECT id, pw " + "FROM `simpleboard`.`tb_member` " + "WHERE id=? AND pw=? ";
+			List<String[]> ret = JDBC.select(query, 2, id, passwd);
 
 			// 세션 할당(기존 세션 폐기)
-			HttpSession session = request.getSession();
-			session.invalidate();
-			session = request.getSession();
-			
-			if (ret) {
+			HttpSession session = MyUtil.resetSession(request);
+
+			if (ret != null && ret.size() != 0) {
 				// 세션에 아이디 등록
 				session.setAttribute("id", id);
 				// simpleBoard로 이동
 				response.sendRedirect(request.getContextPath() + "/board/simpleBoard");
 			} else {
 				// 세션에 메세지 등록
-				request.getSession().invalidate();
-				session.setAttribute("msg", "존재하지 않는 회원입니다.");
+				MyUtil.resetSession(request).setAttribute("msg", "존재하지 않는 회원입니다.");
 				response.sendRedirect(request.getContextPath() + "/msg.jsp");
 			}
 		} catch (Exception e) {
-			request.getSession().invalidate();
-			request.getSession().setAttribute("msg", e.getMessage());
+			MyUtil.resetSession(request).setAttribute("msg", e.getMessage());
 			response.sendRedirect(request.getContextPath() + "/msg.jsp");
 		}
-	}
-
-	private boolean select(String id, String passwd) {
-		// DB 멤버 체크
-
-		return true;
 	}
 }
