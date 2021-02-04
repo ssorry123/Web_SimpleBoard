@@ -8,23 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 회원가입 진행
  * Servlet implementation class SignUpServlet
  */
 @WebServlet(name = "/SignUpServlet", urlPatterns = { "/signUp" })
 public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * 회원가입 페이지로 이동
-	 * 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.sendRedirect(request.getContextPath() + "/member/signUp.jsp");
-	}
 
 	/**
 	 * 데이터 확인 후 회원 가입, 로그인페이지로 이동
@@ -35,21 +24,30 @@ public class SignUpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		String id = (String) request.getParameter("id");
-		String passwd = (String) request.getParameter("passwd");
-		System.out.println(id + ", " + passwd);
+		try {
+			// 입력된 아이디와 비밀번호 추출
+			request.setCharacterEncoding("UTF-8");
+			String id = (String) request.getParameter("id");
+			String passwd = (String) request.getParameter("passwd");
+			System.out.println(id + ", " + passwd);
 
-		// DB 저장
-		boolean ret = insert(id, passwd);
+			// DB 저장
+			boolean ret = insert(id, passwd);
 
-		// 홈으로
-		if (ret) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
-		} else {
-			response.sendRedirect(request.getContextPath() + "/error.jsp");
+			// 홈으로
+			if (ret) {
+				request.getSession().setAttribute("msg", "회원가입 완료");
+				response.sendRedirect(request.getContextPath() + "/msg.jsp");
+			} else {
+				request.getSession().invalidate();
+				request.getSession().setAttribute("msg", "회원가입 오류");
+				response.sendRedirect(request.getContextPath() + "/msg.jsp");
+			}
+		} catch (Exception e) {
+			request.getSession().invalidate();
+			request.getSession().setAttribute("msg", e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/msg.jsp");
 		}
-
 	}
 
 	private boolean insert(String id, String passwd) {

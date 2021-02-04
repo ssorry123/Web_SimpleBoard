@@ -11,8 +11,8 @@
 </head>
 <body>
 
-	<h1>에러</h1>
-	원인 : ${sessionScope.msg }
+	<h1>메세지</h1>
+	 : ${sessionScope.msg }
 
 	<hr>
 	<button type="button" id="home">홈으로</button>

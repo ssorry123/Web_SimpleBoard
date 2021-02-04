@@ -12,16 +12,12 @@
 		<form action="<c:url value="/logout"/>" method="post">
 			<button type="submit">로그아웃</button>
 		</form>
-		<a>메뉴</a>
-		<a>메뉴</a>
-		<a>메뉴</a>
-		<a>메뉴</a>
-		<br>
-		<h3>${sessionScope.id }님 환영합니다.</h3>
+		<a>메뉴</a> <a>메뉴</a> <a>메뉴</a> <a>메뉴</a> <br>
+		<h3>${sessionScope.id }님환영합니다.</h3>
 	</header>
 	<hr>
 	<div>
-		<table border = "2">
+		<table border="2">
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
@@ -40,6 +36,16 @@
 				<td>sample</td>
 				<td>sample</td>
 			</tr>
+
+			<c:forEach items="${sessionScope.boards }" var="board">
+				<tr>
+					<td>${board.no }</td>
+					<td><a href="">${board.title }</a></td>
+					<td>${board.user }</td>
+					<td>${board.date }</td>
+				</tr>
+			</c:forEach>
+
 		</table>
 	</div>
 
