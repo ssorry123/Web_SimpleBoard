@@ -1,15 +1,22 @@
-package sw.model.member;
+package sw.member.biz;
 
-public class MemberDTO {
+public class Member {
 	private String id;
 	private String passwd;
 	private String name;
 
-	public MemberDTO() {
+	public Member() {
 		id = passwd = name = null;
 	}
+	
+	public Member(String id, String passwd) {
+		super();
+		this.id = id;
+		this.passwd = passwd;
+	}
 
-	public MemberDTO(String id, String passwd, String name) {
+
+	public Member(String id, String passwd, String name) {
 		super();
 		this.id = id;
 		this.passwd = passwd;
@@ -38,6 +45,11 @@ public class MemberDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", passwd=" + passwd + ", name=" + name + "]";
 	}
 
 }

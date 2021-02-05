@@ -1,4 +1,4 @@
-package ztest;
+package sw.zNoUse;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import sw.model.dbms.JDBC;
+import sw.dbms.JDBC;
 
 /**
  * DBMS 접속 관리 쿼리 처리

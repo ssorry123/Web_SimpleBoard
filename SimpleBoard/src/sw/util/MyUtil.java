@@ -1,19 +1,37 @@
 package sw.util;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 public class MyUtil {
-	public static HttpSession resetSession(HttpServletRequest req) {
-		HttpSession ret = req.getSession();
-		ret.invalidate();
-		ret = req.getSession();
-		return ret;
+
+	/**
+	 * 세션에 에러값 입력후 에러 페이지로 이동
+	 * @param req
+	 * @param resp
+	 * @param e
+	 * @throws IOException
+	 */
+	public static void catchExceptionInServlet(HttpServletRequest req, HttpServletResponse resp, Exception e)
+			throws IOException {
+		e.printStackTrace();
+		req.getSession().setAttribute("msg", e.getMessage());
+		resp.sendRedirect(req.getContextPath() + "/msg.jsp");
 	}
 
+
+	/**
+	 * 쿼리에 ?를 채워준다
+	 * @param conn
+	 * @param query
+	 * @param vars
+	 * @return
+	 * @throws Exception
+	 */
 	public static PreparedStatement setQuery(Connection conn, String query, String... vars) throws Exception {
 		// 상황에 따라 값을 수정할 수 있는 쿼리 생성
 		PreparedStatement stmt = conn.prepareStatement(query);
@@ -25,9 +43,4 @@ public class MyUtil {
 		return stmt;
 	}
 
-	public static HttpSession resetSessionSetAttributeMsg(HttpServletRequest req, SWException e) {
-		HttpSession ret = resetSession(req);
-		ret.setAttribute("msg", e);
-		return ret;
-	}
 }

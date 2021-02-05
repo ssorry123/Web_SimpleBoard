@@ -1,4 +1,4 @@
-var contextRoot = '/SimpleBoard'
+const contextRoot = '/SimpleBoard'
 $(document).ready(function() {
 	// 회원가입 페이지로 이동
 	$('#signUp').click(function() {

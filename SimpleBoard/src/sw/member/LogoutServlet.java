@@ -1,4 +1,4 @@
-package sw.controller.member;
+package sw.member;
 
 import java.io.IOException;
 
@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sw.util.MyUtil;
-import sw.util.SWException;
 
 /**
  * 로그아웃 진행
@@ -33,11 +32,7 @@ public class LogoutServlet extends HttpServlet {
 			System.out.println("로그아웃 완료");
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		} catch (Exception e) {
-			e.printStackTrace();
-			SWException swe = new SWException("로그아웃 실패", e.getMessage());
-			MyUtil.resetSessionSetAttributeMsg(request, swe);
-			response.sendRedirect(request.getContextPath() + "/msg.jsp");
-			
+			MyUtil.catchExceptionInServlet(request, response, e);
 		}
 	}
 

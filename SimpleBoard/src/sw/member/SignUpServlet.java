@@ -1,15 +1,19 @@
-package sw.controller.member;
+package sw.member;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sw.member.biz.Member;
+import sw.member.biz.MemberBiz;
+import sw.util.MyUtil;
+
 /**
- * 회원가입 진행
- * Servlet implementation class SignUpServlet
+ * 회원가입 진행 Servlet implementation class SignUpServlet
  */
 @WebServlet(name = "/SignUpServlet", urlPatterns = { "/signUp" })
 public class SignUpServlet extends HttpServlet {
@@ -28,31 +32,25 @@ public class SignUpServlet extends HttpServlet {
 			// 입력된 아이디와 비밀번호 추출
 			request.setCharacterEncoding("UTF-8");
 			String id = (String) request.getParameter("id");
-			String passwd = (String) request.getParameter("passwd");
-			System.out.println(id + ", " + passwd);
 
-			// DB 저장
-			boolean ret = insert(id, passwd);
+			// js에서 검사하지만 double check
+			// js가 동작하지 않는 경우도 있음
+			String passwd1 = (String) request.getParameter("passwd1");
+			String passwd2 = (String) request.getParameter("passwd2");
+			if (!passwd1.equals(passwd2))
+				throw new Exception("두 비밀번호가 일치하지 않습니다.");
 
-			// 홈으로
-			if (ret) {
-				request.getSession().setAttribute("msg", "회원가입 완료");
-				response.sendRedirect(request.getContextPath() + "/msg.jsp");
-			} else {
-				request.getSession().invalidate();
-				request.getSession().setAttribute("msg", "회원가입 오류");
-				response.sendRedirect(request.getContextPath() + "/msg.jsp");
-			}
-		} catch (Exception e) {
-			request.getSession().invalidate();
-			request.getSession().setAttribute("msg", e.getMessage());
+			String name = (String) request.getParameter("name");
+			System.out.println(id + ", " + passwd1);
+
+			// DB 저장 시도
+			MemberBiz.signUp(new Member(id, passwd1, name));
+
+			request.getSession().setAttribute("msg", "회원가입 완료");
 			response.sendRedirect(request.getContextPath() + "/msg.jsp");
+
+		} catch (Exception e) {
+			MyUtil.catchExceptionInServlet(request, response, e);
 		}
 	}
-
-	private boolean insert(String id, String passwd) {
-		// db 추후 연동
-		return true;
-	}
-
 }

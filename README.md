@@ -26,9 +26,12 @@
         - servlet (flow control)
     - Model
         - business Logic
-            - MyException
-            - DAO (DBMS)
-            - DTO
+        - DAO (DBMS)
+        - DTO
+![Screenshot](/imgs/mvc.png)
+
+<br>
+
 - make page
     - SPA(Single Page Application) (Now)
     - MPA(Mulit Page Application)   
@@ -58,6 +61,6 @@
         - WebContent 등록
             - 폴더로 드래그
 - Tomcat db connection pool 설정
-    - <a href="https://hwan2.tistory.com/entry/Servlet%EC%97%90%EC%84%9C-MariaDB-%EC%82%AC%EC%9A%A9%EC%8B%9C-Connection-Pool-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95">링크</a>
+    - <a href="https://hwan2.tistory.com/entry/Servlet%EC%97%90%EC%84%9C-MariaDB-%EC%82%AC%EC%9A%A9%EC%8B%9C-Connection-Pool-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95">참고</a>
 ---
 

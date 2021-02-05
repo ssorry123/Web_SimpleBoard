@@ -1,16 +1,16 @@
-package sw.model.member;
+package sw.simpleBoard.biz;
 
-public class BoardEntity {
+public class Board {
 	private String no;
 	private String title;
 	private String user;
 	private String date;
 
-	public BoardEntity() {
+	public Board() {
 
 	}
 
-	public BoardEntity(String no, String title, String user, String date) {
+	public Board(String no, String title, String user, String date) {
 		super();
 		this.no = no;
 		this.title = title;

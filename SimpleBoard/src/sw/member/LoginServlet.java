@@ -1,4 +1,4 @@
-package sw.controller.member;
+package sw.member;
 
 import java.io.IOException;
 
@@ -9,14 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import sw.model.member.MemberBiz;
-import sw.model.member.MemberDTO;
+import sw.member.biz.Member;
+import sw.member.biz.MemberBiz;
 import sw.util.MyUtil;
-import sw.util.SWException;
-import sw.util.SWExceptionDTO;
 
 /**
- * 로그인 진행 Servlet implementation class login
+ * 로그인 진행
  */
 @WebServlet(name = "login", urlPatterns = { "/login" })
 public class LoginServlet extends HttpServlet {
@@ -48,31 +46,23 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(id + ", " + passwd);
 
 			// 아이디, 비밀번호 조회
-			MemberDTO member = new MemberDTO();
+			Member member = new Member();
 			member.setId(id);
 			member.setPasswd(passwd);
-			
-			member = MemberBiz.login(member);
+
+			// DB 연결후 로그인 시도
+			MemberBiz.login(member);
 
 			// 세션 할당(기존 세션 폐기)
-			HttpSession session = MyUtil.resetSession(request);
+			HttpSession session = request.getSession();
+			session.invalidate();
+			session = request.getSession();
 
-			if (member != null) {
-				// 세션에 아이디 등록
-				session.setAttribute("member", member);
-				// simpleBoard로 이동
-				response.sendRedirect(request.getContextPath() + "/board/simpleBoard");
-			} else {
-				// 세션에 메세지 등록
-				SWException e = new SWException("로그인 실패", "존재하지 않는 회원이거나 비밀번호가 잘못되었습니다.");
-				MyUtil.resetSessionSetAttributeMsg(request, e);
-				response.sendRedirect(request.getContextPath() + "/msg.jsp");
-			}
+			session.setAttribute("member", member);
+			response.sendRedirect(request.getContextPath() + "/simpleBoard");
+
 		} catch (Exception e) {
-			e.printStackTrace();
-			SWException swe = new SWException("error", e.getMessage());
-			MyUtil.resetSessionSetAttributeMsg(request, swe);
-			response.sendRedirect(request.getContextPath() + "/msg.jsp");
+			MyUtil.catchExceptionInServlet(request, response, e);
 		}
 	}
 }

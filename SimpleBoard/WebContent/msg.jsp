@@ -11,8 +11,10 @@
 </head>
 <body>
 
-	<h1>${msg.type }</h1>
-	: ${msg.content }
+	<h1>뭔가 잘못됐어</h1>
+	<hr>
+	${msg }
+	<hr>
 
 	<hr>
 	<button type="button" id="home">홈으로</button>
