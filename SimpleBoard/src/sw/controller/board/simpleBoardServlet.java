@@ -1,4 +1,4 @@
-package board;
+package sw.controller.board;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import sw.model.member.BoardEntity;
+import sw.model.member.MemberDTO;
 
 /**
  * 게시판 내용 받은 후 게시판 페이지에 전달 Servlet implementation class simpleBoard
@@ -31,8 +34,8 @@ public class simpleBoardServlet extends HttpServlet {
 		try {
 			// 로그인 유효성 검사
 			HttpSession session = request.getSession(false);
-			String id = (String) session.getAttribute("id");
-			if(id==null) {
+			MemberDTO member = (MemberDTO) session.getAttribute("member");
+			if(member==null) {
 				throw new Exception("유효하지 않은 로그인입니다.");
 			}
 			

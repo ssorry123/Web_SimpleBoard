@@ -1,7 +1,6 @@
-package member;
+package sw.controller.member;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import util.JDBC;
-import util.MyUtil;
+import sw.model.member.MemberBiz;
+import sw.model.member.MemberDTO;
+import sw.util.MyUtil;
 
 /**
  * 로그인 진행 Servlet implementation class login
@@ -46,15 +46,18 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(id + ", " + passwd);
 
 			// 아이디, 비밀번호 조회
-			String query = "SELECT id, pw " + "FROM `simpleboard`.`tb_member` " + "WHERE id=? AND pw=? ";
-			List<String[]> ret = JDBC.select(query, 2, id, passwd);
+			MemberDTO member = new MemberDTO();
+			member.setId(id);
+			member.setPasswd(passwd);
+			
+			member = MemberBiz.login(member);
 
 			// 세션 할당(기존 세션 폐기)
 			HttpSession session = MyUtil.resetSession(request);
 
-			if (ret != null && ret.size() != 0) {
+			if (member != null) {
 				// 세션에 아이디 등록
-				session.setAttribute("id", id);
+				session.setAttribute("member", member);
 				// simpleBoard로 이동
 				response.sendRedirect(request.getContextPath() + "/board/simpleBoard");
 			} else {
@@ -63,6 +66,7 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/msg.jsp");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			MyUtil.resetSession(request).setAttribute("msg", e.getMessage());
 			response.sendRedirect(request.getContextPath() + "/msg.jsp");
 		}

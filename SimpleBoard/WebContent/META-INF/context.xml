@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Context>
+	<Resource type="javax.sql.DataSource"
+			  name="jdbc_mariadb"
+			  auth="Container"
+			  username="simpleDeveloper"
+			  password="1234"
+			  driverClassName="org.mariadb.jdbc.Driver"
+			  url="jdbc:mariadb://127.0.0.1:3306"
+			  maxActive="50"
+			  maxWait="1000" />
+</Context>

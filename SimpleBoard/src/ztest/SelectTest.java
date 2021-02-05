@@ -1,4 +1,4 @@
-package board;
+package ztest;
 
 import java.sql.*;
 

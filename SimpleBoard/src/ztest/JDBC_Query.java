@@ -1,4 +1,4 @@
-package util;
+package ztest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,19 +8,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sw.model.dbms.JDBC;
+
 /**
  * DBMS 접속 관리 쿼리 처리
  * 
  * @author 26060
  *
  */
-public class JDBC {
-	private static String driver = "org.mariadb.jdbc.Driver";
-	private static String url = "jdbc:mariadb://127.0.0.1:3306";
-	private static String dbUser = "simpleDeveloper";
-	private static String dbUserPWD = "1234";
+public class JDBC_Query {
+//	private static String driver = "org.mariadb.jdbc.Driver";
+//	private static String url = "jdbc:mariadb://127.0.0.1:3306";
+//	private static String dbUser = "simpleDeveloper";
+//	private static String dbUserPWD = "1234";
 
-	public static void setQuery(PreparedStatement stmt, String[] vars) throws SQLException {
+	private static void setQuery(PreparedStatement stmt, String[] vars) throws SQLException {
 		for (int i = 0; i < vars.length; ++i) {
 			stmt.setString(i + 1, vars[i]);
 		}
@@ -35,8 +37,7 @@ public class JDBC {
 		try {
 			try {
 				// 드라이버 연결, 커넥션 생성
-				Class.forName(driver);
-				conn = DriverManager.getConnection(url, dbUser, dbUserPWD);
+				conn = JDBC.getConn();
 
 				// 쿼리 셋팅
 				stmt = conn.prepareStatement(query);
@@ -60,9 +61,9 @@ public class JDBC {
 				throw e;
 			} finally {
 				try {
-					rset.close();
-					stmt.close();
-					conn.close();
+					JDBC.close(rset);
+					JDBC.close(stmt);
+					JDBC.close(conn);
 				} catch (Exception e) {
 					throw e;
 				}
