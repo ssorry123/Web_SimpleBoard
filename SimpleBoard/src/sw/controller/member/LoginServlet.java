@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import sw.model.member.MemberBiz;
 import sw.model.member.MemberDTO;
 import sw.util.MyUtil;
+import sw.util.SWException;
+import sw.util.SWExceptionDTO;
 
 /**
  * 로그인 진행 Servlet implementation class login
@@ -62,12 +64,14 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/board/simpleBoard");
 			} else {
 				// 세션에 메세지 등록
-				MyUtil.resetSession(request).setAttribute("msg", "존재하지 않는 회원입니다.");
+				SWException e = new SWException("로그인 실패", "존재하지 않는 회원이거나 비밀번호가 잘못되었습니다.");
+				MyUtil.resetSessionSetAttributeMsg(request, e);
 				response.sendRedirect(request.getContextPath() + "/msg.jsp");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MyUtil.resetSession(request).setAttribute("msg", e.getMessage());
+			SWException swe = new SWException("error", e.getMessage());
+			MyUtil.resetSessionSetAttributeMsg(request, swe);
 			response.sendRedirect(request.getContextPath() + "/msg.jsp");
 		}
 	}

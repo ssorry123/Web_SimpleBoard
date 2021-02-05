@@ -13,7 +13,7 @@
 			<button type="submit">로그아웃</button>
 		</form>
 		<a>메뉴</a> <a>메뉴</a> <a>메뉴</a> <a>메뉴</a> <br>
-		<h3>${sessionScope.member.id }님환영합니다.</h3>
+		<h3>${member.id }님환영합니다.</h3>
 	</header>
 	<hr>
 	<div>

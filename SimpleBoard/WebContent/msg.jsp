@@ -11,8 +11,8 @@
 </head>
 <body>
 
-	<h1>메세지</h1>
-	 : ${sessionScope.msg }
+	<h1>${msg.type }</h1>
+	: ${msg.content }
 
 	<hr>
 	<button type="button" id="home">홈으로</button>

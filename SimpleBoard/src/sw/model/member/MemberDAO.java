@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import sw.model.dbms.JDBC;
 import sw.util.MyUtil;
+import sw.util.SWException;
 
 public class MemberDAO {
 	/**
@@ -16,7 +17,7 @@ public class MemberDAO {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public static boolean login(Connection conn, MemberDTO member) throws Exception {
+	public static boolean login(Connection conn, MemberDTO member) throws SWException {
 		String query = "SELECT id, pw FROM `simpleboard`.`tb_member` WHERE id=? AND pw=? ";
 		String id = member.getId();
 		String pw = member.getPasswd();
@@ -37,7 +38,8 @@ public class MemberDAO {
 			}
 
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new SWException("error", e.getMessage());
 		} finally {
 			JDBC.close(rset);
 			JDBC.close(stmt);

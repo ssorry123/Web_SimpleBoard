@@ -8,6 +8,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import sw.util.SWException;
+
 /**
  * db 커넥션 풀
  * 
@@ -22,7 +24,7 @@ public final class JDBC {
 	}
 
 	// db 연결 객체
-	public static Connection getConn() throws Exception {
+	public static Connection getConn() throws SWException {
 		Connection conn = null;
 
 		try {
@@ -31,7 +33,8 @@ public final class JDBC {
 			conn = datasource.getConnection();
 			conn.setAutoCommit(false);
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new SWException("error", e.getMessage());
 		}
 
 		return conn;
@@ -53,51 +56,56 @@ public final class JDBC {
 	}
 
 	// 닫기 메소드
-	public static void close(ResultSet rset) throws Exception {
+	public static void close(ResultSet rset) throws SWException {
 		try {
 			if (rset != null)
 				rset.close();
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new SWException("error", e.getMessage());
 		}
 	}
 
-	public static void close(Statement stmt) throws Exception {
+	public static void close(Statement stmt) throws SWException {
 		try {
 			if (stmt != null)
 				stmt.close();
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new SWException("error", e.getMessage());
 		}
 	}
 
-	public static void close(Connection conn) throws Exception {
+	public static void close(Connection conn) throws SWException {
 		try {
 			if (conn != null)
 				conn.close();
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new SWException("error", e.getMessage());
 		}
 	}
 
 	// 트랜잭션 관련
-	public static void commit(Connection conn) throws Exception {
+	public static void commit(Connection conn) throws SWException {
 		try {
 			if (isConnected(conn)) {
 				conn.commit();
 			}
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new SWException("error", e.getMessage());
 		}
 	}
 
-	public static void rollback(Connection conn) throws Exception {
+	public static void rollback(Connection conn) throws SWException {
 		try {
 			if (isConnected(conn)) {
 				conn.rollback();
 			}
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new SWException("error", e.getMessage());
 		}
 	}
 

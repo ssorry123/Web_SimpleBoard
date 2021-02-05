@@ -24,4 +24,10 @@ public class MyUtil {
 		}
 		return stmt;
 	}
+
+	public static HttpSession resetSessionSetAttributeMsg(HttpServletRequest req, SWException e) {
+		HttpSession ret = resetSession(req);
+		ret.setAttribute("msg", e);
+		return ret;
+	}
 }

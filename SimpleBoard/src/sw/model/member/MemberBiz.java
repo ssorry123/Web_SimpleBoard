@@ -3,9 +3,10 @@ package sw.model.member;
 import java.sql.Connection;
 
 import sw.model.dbms.JDBC;
+import sw.util.SWException;
 
 public class MemberBiz {
-	public static MemberDTO login(MemberDTO member) throws Exception {
+	public static MemberDTO login(MemberDTO member) throws SWException {
 		Connection conn = null;
 
 		try {
@@ -23,7 +24,8 @@ public class MemberBiz {
 			}
 
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
+			throw new SWException("error", e.getMessage());
 		} finally {
 			// 컨넥션 해제
 			JDBC.close(conn);
