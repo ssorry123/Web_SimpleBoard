@@ -5,6 +5,20 @@
 
 ---
 
+## USE
+- eclipse
+    - dynamic web project
+- java
+- js (jquery)
+- jsp & servlet (EL, JSTL)
+- MVC
+- DBMS
+- ~~CSS~~
+
+<br>
+
+---
+
 ### 구현된 목록 (2021-02-06)
 - 회원 관리
     - 회원가입(signUp)
@@ -16,30 +30,55 @@
         - 비밀번호변경(passwdChange)
 
 - 게시글
-
-
-<br>
-
----
-
-### Table 구조
+    - 전체 게시글 보기
+    - 특정 게시글 보기
+    - 게시글 작성하기
 
 <br>
 
 ---
 
-## USE
-- eclipse
-- dynamic web project
-- java
-- js (jquery)
-- jsp & servlet (EL, JSTL)
-- DBMS
-- ~~CSS~~
+### Table 구조 (2021-02-06)
+
+![Screenshot](/imgs/ERD.png)
+
+#### TB_MEMBER
+```sql
+CREATE TABLE `tb_member` (
+	`id` VARCHAR(50) NOT NULL DEFAULT 'test' COLLATE 'utf8_general_ci',
+	`pw` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`name` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
+-- COLLATE='utf8_general_ci'
+-- ENGINE=InnoDB
+-- ;
+
+```
+
+#### TB_SIMPLEBOARD
+```sql
+CREATE TABLE `tb_simpleboard` (
+	`no` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userid` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`title` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`date` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`content` TEXT(65535) NULL DEFAULT '내용이 없습니다.' COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`no`) USING BTREE,
+	INDEX `FK_tb_simpleboard_tb_member` (`userid`) USING BTREE,
+	CONSTRAINT `FK_tb_simpleboard_tb_member` FOREIGN KEY (`userid`) REFERENCES `simpleboard`.`tb_member` (`id`) ON UPDATE CASCADE ON DELETE SET NULL
+)
+-- COLLATE='utf8_general_ci'
+-- ENGINE=INNODB
+-- AUTO_INCREMENT=18
+-- ;
+```
 
 <br>
 
 ---
+
+
 
 ## Development Design
 - MVC

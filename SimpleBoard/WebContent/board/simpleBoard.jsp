@@ -14,45 +14,46 @@
 <body>
 
 	<header>
-		<%@ include file="sub/header.jsp" %>
+		<%@ include file="sub/header.jsp"%>
+
 	</header>
 	<hr>
-
+	<form action="<c:url value="/board/writePost.jsp"/>" method="post">
+		<button type="submit">글쓰기</button>
+	</form>
+	<hr>
 	<div>
-		<table border="2">
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>시간</th>
-			</tr>
-			<tr>
-				<td>sample</td>
-				<td>sample</td>
-				<td>sample</td>
-				<td>sample</td>
-			</tr>
-			<tr>
-				<td>sample</td>
-				<td>sample</td>
-				<td>sample</td>
-				<td>sample</td>
-			</tr>
-
-			<c:forEach items="${sessionScope.boards }" var="board">
+		<form action="<c:url value="/showOnePost" />" method="post" id = "posts">
+			<table border="2">
 				<tr>
-					<td>${board.no }</td>
-					<td><a href="">${board.title }</a></td>
-					<td>${board.user }</td>
-					<td>${board.date }</td>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자 ID</th>
+					<th>시간</th>
 				</tr>
-			</c:forEach>
+				<tr>
+					<td>sample</td>
+					<td>sample</td>
+					<td>sample</td>
+					<td>sample</td>
+				</tr>
 
-		</table>
+				<c:forEach items="${sessionScope.posts }" var="post">
+					<tr class="post">
+						<td class="no">${post.no }</td>
+						<td>${post.title }</td>
+						<td>${post.userId }</td>
+						<td>${post.dateTime }</td>
+					</tr>
+				</c:forEach>
+
+			</table>
+			<input type="hidden" name="postNo" id="postNo" value="-1"/>
+		</form>
 	</div>
 	<hr>
 	<footer>
-		<%@ include file="sub/footer.jsp" %>
+		<%@ include file="sub/footer.jsp"%>
 	</footer>
 
 </body>

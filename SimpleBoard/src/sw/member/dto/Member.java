@@ -8,14 +8,24 @@ public class Member {
 	public Member() {
 		id = passwd = name = null;
 	}
-	
+
+	/**
+	 * 
+	 * @param id
+	 * @param passwd
+	 */
 	public Member(String id, String passwd) {
 		super();
 		this.id = id;
 		this.passwd = passwd;
 	}
 
-
+	/**
+	 * 
+	 * @param id
+	 * @param passwd
+	 * @param name
+	 */
 	public Member(String id, String passwd, String name) {
 		super();
 		this.id = id;

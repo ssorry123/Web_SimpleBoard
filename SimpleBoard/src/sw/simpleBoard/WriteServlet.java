@@ -1,8 +1,6 @@
 package sw.simpleBoard;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,43 +12,41 @@ import javax.servlet.http.HttpSession;
 import sw.member.dto.Member;
 import sw.simpleBoard.biz.SimpleBoardBiz;
 import sw.simpleBoard.dto.InsertPostEntity;
-import sw.simpleBoard.dto.SelectPostEntity;
 import sw.util.MyUtil;
 
 /**
- * 게시판 내용 받은 후 게시판 페이지에 전달 
+ * 글쓰기 기능
  */
-@WebServlet(urlPatterns = { "/simpleBoard" })
-public class simpleBoardServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/write" })
+public class WriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 게시글 목록 받고 jsp에 부려줌
-	 * 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("get");
 		// TODO Auto-generated method stub
-
 		try {
-			// 로그인 유효성 검사
 			HttpSession session = request.getSession(false);
 			Member member = (Member) session.getAttribute("member");
 			if (member == null) {
-				throw new Exception("유효하지 않은 로그인입니다.");
+				throw new Exception("세션만료");
 			}
-			
-			List<SelectPostEntity> posts = SimpleBoardBiz.selectPostAll();
 
-			session.setAttribute("posts", posts);
-			response.sendRedirect(request.getContextPath() + "/board/simpleBoard.jsp");
+			request.setCharacterEncoding("UTF-8");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+
+			InsertPostEntity post = new InsertPostEntity(title, member.getId(), content);
+			System.out.println(post);
+			SimpleBoardBiz.insertPost(member, post);
+
+			MyUtil.alertAndSendRedirect(response, request.getContextPath() + "/simpleBoard", "글 작성이 완료되었습니다");
 		} catch (Exception e) {
 			MyUtil.catchExceptionInServlet(request, response, e);
 		}
 	}
-
 
 }
