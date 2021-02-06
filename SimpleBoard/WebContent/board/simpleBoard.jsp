@@ -6,11 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>SimpleBoard</title>
+<script type="text/javascript"
+	src="<c:url value="/lib/jquery-3.5.1.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/js/board/simpleBoard.js" />"></script>
 </head>
 <body>
 	<header>
 		<form action="<c:url value="/logout"/>" method="post">
 			<button type="submit">로그아웃</button>
+		</form>
+		<form action="<c:url value="/signOut"/>" method="post" id="signOut">
+			<button type="submit">회원탈퇴</button>
 		</form>
 		<a>메뉴</a> <a>메뉴</a> <a>메뉴</a> <a>메뉴</a> <br>
 		<h3>${member.name }님환영합니다.</h3>

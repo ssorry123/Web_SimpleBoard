@@ -9,7 +9,41 @@ import sw.dbms.JDBC;
 import sw.util.MyUtil;
 
 public class MemberDao {
+	/**
+	 * 회원탈퇴 DAO
+	 * @param conn
+	 * @param member
+	 * @throws Exception
+	 */
+	public void signOut(Connection conn, Member member) throws Exception {
+		String query = "DELETE FROM `simpleboard`.`tb_member` WHERE  `id`=?";
+		PreparedStatement stmt = null;
 
+		try {
+			String id = member.getId();
+
+			stmt = MyUtil.setQuery(conn, query, id);
+			int ret = stmt.executeUpdate();
+
+			if (ret != 1)
+				throw new Exception("error : 회원탈퇴 실패");
+
+		} catch (Exception e) {
+			if (e instanceof SQLException) {
+				e = new SQLException("존재하지 않는 회원일까?");
+			}
+			throw e;
+		} finally {
+			JDBC.close(stmt);
+		}
+	}
+
+	/**
+	 * 회원가입 DAO
+	 * @param conn
+	 * @param member
+	 * @throws Exception
+	 */
 	public void signUp(Connection conn, Member member) throws Exception {
 		String query = "INSERT INTO `simpleboard`.`tb_member` (`id`, `pw`, `name`) VALUES (?, ?, ?)";
 		PreparedStatement stmt = null;
@@ -33,15 +67,12 @@ public class MemberDao {
 		} finally {
 			JDBC.close(stmt);
 		}
-
 	}
 
 	/**
-	 * id, pw 일치시 true 리턴
-	 * 
+	 * 로그인 DAO
 	 * @param conn
 	 * @param member
-	 * @return boolean
 	 * @throws Exception
 	 */
 	public void login(Connection conn, Member member) throws Exception {
