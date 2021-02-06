@@ -1,4 +1,4 @@
-package sw.simpleBoard.biz;
+package sw.simpleBoard.dto;
 
 public class Board {
 	private String no;

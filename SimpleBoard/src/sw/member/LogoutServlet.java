@@ -27,7 +27,7 @@ public class LogoutServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			HttpSession session = request.getSession(false); // 새로운 세션 할당 불가
+			HttpSession session = request.getSession();
 			session.invalidate();	// 세션 폐기
 			response.sendRedirect(request.getContextPath() + "/index.jsp"); // home으로 이동
 		} catch (Exception e) {

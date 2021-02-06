@@ -3,6 +3,7 @@ package sw.member.biz;
 import java.sql.Connection;
 
 import sw.dbms.JDBC;
+import sw.member.dto.Member;
 
 public class MemberBiz {
 

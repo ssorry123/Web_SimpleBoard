@@ -1,4 +1,4 @@
-package sw.member.biz;
+package sw.member.dto;
 
 public class Member {
 	private String id;

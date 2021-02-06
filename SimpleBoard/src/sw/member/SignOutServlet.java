@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import sw.member.biz.Member;
 import sw.member.biz.MemberBiz;
+import sw.member.dto.Member;
 import sw.util.MyUtil;
 
 /**
@@ -32,7 +32,7 @@ public class SignOutServlet extends HttpServlet {
 		try {
 			HttpSession session = request.getSession(false);
 			if (session.getAttribute("member") == null) {
-				throw new Exception("세션이 만료되어 유효하지 않은 탈퇴 요청입니다.");
+				throw new Exception("세션만료");
 			}
 
 			Member member = (Member) session.getAttribute("member");

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import sw.member.biz.Member;
-import sw.simpleBoard.biz.Board;
+import sw.member.dto.Member;
+import sw.simpleBoard.dto.Board;
 import sw.util.MyUtil;
 
 /**

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import sw.member.biz.Member;
 import sw.member.biz.MemberBiz;
+import sw.member.dto.Member;
 import sw.util.MyUtil;
 
 /**
@@ -31,7 +31,7 @@ public class passwdChangeServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			Member member = (Member) session.getAttribute("member");
 			if(member == null) {
-				throw new Exception("회원 정보 수정 불가");
+				throw new Exception("세션만료");
 			}
 
 			request.setCharacterEncoding("UTF-8");
