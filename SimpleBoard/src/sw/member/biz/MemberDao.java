@@ -10,7 +10,70 @@ import sw.util.MyUtil;
 
 public class MemberDao {
 	/**
+	 * 비밀번호 변경
+	 * 
+	 * @param conn
+	 * @param member
+	 * @param newPasswd
+	 * @throws Exception
+	 */
+	public void passwdChange(Connection conn, Member member, String newPasswd) throws Exception {
+		String query = "UPDATE `simpleboard`.`tb_member` SET `pw`=? WHERE  `id`=?";
+		PreparedStatement stmt = null;
+
+		try {
+			String id = member.getId();
+
+			stmt = MyUtil.setQuery(conn, query, newPasswd, id);
+			int ret = stmt.executeUpdate();
+
+			if (ret != 1)
+				throw new Exception("error : 비밀번호 수정 실패");
+
+		} catch (Exception e) {
+			if (e instanceof SQLException) {
+				e = new SQLException("존재하지 않는 회원일까?");
+			}
+			throw e;
+		} finally {
+			JDBC.close(stmt);
+		}
+	}
+
+	/**
+	 * 닉네임 변경
+	 * 
+	 * @param conn
+	 * @param member
+	 * @param newNick
+	 * @throws Exception
+	 */
+	public void nickChange(Connection conn, Member member, String newNick) throws Exception {
+		String query = "UPDATE `simpleboard`.`tb_member` SET `name`=? WHERE  `id`=?";
+		PreparedStatement stmt = null;
+
+		try {
+			String id = member.getId();
+
+			stmt = MyUtil.setQuery(conn, query, newNick, id);
+			int ret = stmt.executeUpdate();
+
+			if (ret != 1)
+				throw new Exception("error : 닉네임 수정 실패");
+
+		} catch (Exception e) {
+			if (e instanceof SQLException) {
+				e = new SQLException("존재하지 않는 회원일까?");
+			}
+			throw e;
+		} finally {
+			JDBC.close(stmt);
+		}
+	}
+
+	/**
 	 * 회원탈퇴 DAO
+	 * 
 	 * @param conn
 	 * @param member
 	 * @throws Exception
@@ -40,6 +103,7 @@ public class MemberDao {
 
 	/**
 	 * 회원가입 DAO
+	 * 
 	 * @param conn
 	 * @param member
 	 * @throws Exception
@@ -71,6 +135,7 @@ public class MemberDao {
 
 	/**
 	 * 로그인 DAO
+	 * 
 	 * @param conn
 	 * @param member
 	 * @throws Exception

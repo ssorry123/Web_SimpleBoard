@@ -44,7 +44,7 @@ public class SignUpServlet extends HttpServlet {
 			System.out.println(id + ", " + passwd1);
 
 			// DB 저장 시도
-			MemberBiz.signUp(new Member(id, passwd1, name));
+			MemberBiz.signUp(new Member(id, passwd1, name), passwd2);
 
 			request.getSession().setAttribute("msg", "회원가입 완료");
 			response.sendRedirect(request.getContextPath() + "/msg.jsp");

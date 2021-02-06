@@ -5,6 +5,29 @@
 
 ---
 
+### 구현된 목록 (2021-02-06)
+- 회원 관리
+    - 회원가입(signUp)
+    - 회원탈퇴(signOut)
+    - 로그인(login)
+    - 로그아웃(logout)
+    - 회원정보 수정(memberChange)
+        - 닉네임변경(nickChange)
+        - 비밀번호변경(passwdChange)
+
+- 게시글
+
+
+<br>
+
+---
+
+### Table 구조
+
+<br>
+
+---
+
 ## USE
 - eclipse
 - dynamic web project
@@ -59,7 +82,7 @@
             - [Eclipse] - [ProjectName] - [BuildPath] - [Libraries] -
             - [ClassPath] - [Add Library...] - [User Libraries...] - [Add JARs]
         - WebContent 등록
-            - 폴더로 드래그
+            - WEB-INF/lib 폴더로 드래그
 - Tomcat db connection pool 설정
     - <a href="https://hwan2.tistory.com/entry/Servlet%EC%97%90%EC%84%9C-MariaDB-%EC%82%AC%EC%9A%A9%EC%8B%9C-Connection-Pool-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95">참고</a>
 ---

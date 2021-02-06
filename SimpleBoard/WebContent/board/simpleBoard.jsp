@@ -16,6 +16,9 @@
 		<form action="<c:url value="/logout"/>" method="post">
 			<button type="submit">로그아웃</button>
 		</form>
+		<form action="<c:url value="/member/memberChange.jsp"/>" method="post">
+			<button type="submit">회원정보수정</button>
+		</form>
 		<form action="<c:url value="/signOut"/>" method="post" id="signOut">
 			<button type="submit">회원탈퇴</button>
 		</form>
