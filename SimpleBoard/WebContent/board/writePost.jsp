@@ -19,7 +19,7 @@
 		<table>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="title" /></td>
+				<td><input type="text" name="title" required/></td>
 			</tr>
 			<tr>
 				<th>내용</th>

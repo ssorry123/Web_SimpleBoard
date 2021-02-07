@@ -13,6 +13,29 @@ import sw.simpleBoard.dto.SelectPostEntity;
 import sw.util.MyUtil;
 
 public class SimpleBoardDao {
+	public void deletePost(Connection conn, String postNo) throws Exception {
+		// 모든 게시글 불러옴. 내용은 불러오지 않음
+		String query = "DELETE FROM `simpleboard`.`tb_simpleboard` WHERE  `no`=?";
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = MyUtil.setQuery(conn, query, postNo);
+			int ret = stmt.executeUpdate();
+
+			if (ret != 1) {
+				throw new Exception("게시글을 삭제할 수 없습니다.");
+			}
+
+		} catch (Exception e) {
+			if (e instanceof SQLException) {
+				e = new SQLException("게시글을 삭제할 수 없습니다.");
+			}
+			throw e;
+		} finally {
+			JDBC.close(stmt);
+		}
+	}
+
 	public SelectPostEntity selectPost(Connection conn, String postNo) throws Exception {
 		// 모든 게시글 불러옴. 내용은 불러오지 않음
 		String query = "SELECT NO, userid, username, title, DATE, content FROM simpleboard.tb_simpleboard WHERE NO = ?";
@@ -96,7 +119,7 @@ public class SimpleBoardDao {
 		// 뉴라인을 <br>로 수정 후 저장
 		String content = post.getContent().replace("\n", "<br>");
 		post.setContent(content);
-		
+
 		try {
 			stmt = MyUtil.setQuery(conn, query, post.getUserId(), post.getUserName(), post.getTitle(),
 					post.getContent());

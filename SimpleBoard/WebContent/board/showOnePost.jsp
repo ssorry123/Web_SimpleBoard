@@ -43,7 +43,13 @@
 		</tfoot>
 	</table>
 	<button type="button" id="back">뒤로가기</button>
-
+	<!-- 자신이 쓴 글일경우 삭제 요청 버튼 활성화 -->
+	<c:if test="${post.userId == member.id }">
+		<form action="<c:url value="/delete"/>" method="post">
+			<input type="hidden" value="${post.no }" name="postNo"/>
+			<button type="submit">글 삭제</button>
+		</form>
+	</c:if>
 	<hr>
 	<footer>
 		<%@ include file="sub/footer.jsp"%>

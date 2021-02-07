@@ -10,6 +10,28 @@ import sw.simpleBoard.dto.SelectPostEntity;
 
 public class SimpleBoardBiz {
 	/**
+	 * 글번호에 해당하는 글을 삭제한다.
+	 * @param postNo
+	 * @throws Exception
+	 */
+	public static void deletePost(String postNo) throws Exception {
+		Connection conn = null;
+		SelectPostEntity ret = null;
+		try {
+			conn = JDBC.getConn();
+			conn.setAutoCommit(false);
+			new SimpleBoardDao().deletePost(conn, postNo);
+			conn.commit();
+		} catch (Exception e) {
+			conn.rollback();
+			throw e;
+		} finally {
+			JDBC.close(conn);
+		}
+	}
+	
+	
+	/**
 	 * 글 번호에 해당하는 게시글을 긁어온다(내용 포함)
 	 * @param postNo
 	 * @return
