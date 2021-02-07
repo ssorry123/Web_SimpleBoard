@@ -3,83 +3,28 @@
 
 <br>
 
+1. USING
+2. Development Design
+3. Implemented
+    - service
+    - db table
+4. setting
+
 ---
 
-## USE
+## USING
 - eclipse
     - dynamic web project
 - java
 - js (jquery)
 - jsp & servlet (EL, JSTL)
 - MVC
-- DBMS
+- DBMS(mariadb)
 - ~~CSS~~
 
 <br>
 
 ---
-
-### 구현된 목록 (2021-02-06)
-- 회원 관리
-    - 회원가입(signUp)
-    - 회원탈퇴(signOut)
-    - 로그인(login)
-    - 로그아웃(logout)
-    - 회원정보 수정(memberChange)
-        - 닉네임변경(nickChange)
-        - 비밀번호변경(passwdChange)
-
-- 게시글
-    - 전체 게시글 보기
-    - 특정 게시글 보기
-    - 게시글 작성하기
-    - 자신의 게시글 삭제하기
-
-<br>
-
----
-
-### Table 구조 (2021-02-06)
-
-![Screenshot](/imgs/ERD.png)
-
-#### TB_MEMBER
-```sql
-CREATE TABLE `tb_member` (
-	`id` VARCHAR(50) NOT NULL DEFAULT 'test' COLLATE 'utf8_general_ci',
-	`pw` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
-	`name` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
-	PRIMARY KEY (`id`) USING BTREE
-)
--- COLLATE='utf8_general_ci'
--- ENGINE=InnoDB
--- ;
-
-```
-
-#### TB_SIMPLEBOARD
-```sql
-CREATE TABLE `tb_simpleboard` (
-	`no` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`userid` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
-	`title` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
-	`date` DATETIME NOT NULL DEFAULT current_timestamp(),
-	`content` TEXT(65535) NULL DEFAULT '내용이 없습니다.' COLLATE 'utf8_general_ci',
-	PRIMARY KEY (`no`) USING BTREE,
-	INDEX `FK_tb_simpleboard_tb_member` (`userid`) USING BTREE,
-	CONSTRAINT `FK_tb_simpleboard_tb_member` FOREIGN KEY (`userid`) REFERENCES `simpleboard`.`tb_member` (`id`) ON UPDATE CASCADE ON DELETE SET NULL
-)
--- COLLATE='utf8_general_ci'
--- ENGINE=INNODB
--- AUTO_INCREMENT=18
--- ;
-```
-
-<br>
-
----
-
-
 
 ## Development Design
 - MVC
@@ -103,6 +48,97 @@ CREATE TABLE `tb_simpleboard` (
 <br>
 
 ---
+
+### 구현된 목록 (2021-02-07)
+- 회원 관리
+    - 회원가입(signUp)
+    - 회원탈퇴(signOut)
+    - 로그인(login)
+    - 로그아웃(logout)
+    - 회원정보 수정(memberChange)
+        - 닉네임변경(nickChange)
+        - 비밀번호변경(passwdChange)
+
+- 게시글
+    - 전체 게시글 목록 보기(simpleBoard)
+    - 특정 게시글 상세 보기(showOnePost)
+    - 게시글 작성하기(writePost)
+    - 자신의 게시글 삭제(deletePost)
+    - 댓글(comment)
+        - 댓글 보기, 댓글 달기(writeComment)
+
+<br>
+
+---
+
+### Table 구조 (2021-02-07)
+
+![Screenshot](/imgs/ERD.png)
+
+<br>
+
+#### TB_MEMBER
+회원 관리
+```sql
+CREATE TABLE `tb_member` (
+	`id` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`name` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`pw` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`id`, `name`) USING BTREE,
+	UNIQUE INDEX `name` (`name`) USING BTREE,
+	UNIQUE INDEX `id` (`id`) USING BTREE
+)
+-- COLLATE='utf8_general_ci'
+-- ENGINE=InnoDB
+;
+```
+
+#### TB_SIMPLEBOARD
+게시글 관리
+```sql
+CREATE TABLE `tb_simpleboard` (
+	`no` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userid` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`username` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`title` VARCHAR(50) NOT NULL DEFAULT 'titleEx' COLLATE 'utf8_general_ci',
+	`date` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`content` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`no`) USING BTREE,
+	INDEX `FK_tb_simpleboard_tb_member` (`userid`, `username`) USING BTREE,
+	CONSTRAINT `FK_tb_simpleboard_tb_member` FOREIGN KEY (`userid`, `username`) REFERENCES `simpleboard`.`tb_member` (`id`, `name`) ON UPDATE CASCADE ON DELETE SET NULL
+)
+-- COLLATE='utf8_general_ci'
+-- ENGINE=InnoDB
+-- AUTO_INCREMENT=28
+-- ;
+```
+
+#### TB_COMMENT
+댓글 관리
+```sql
+CREATE TABLE `tb_comment` (
+	`no` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`postNo` BIGINT(20) UNSIGNED NULL DEFAULT NULL,
+	`userid` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`username` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`comment` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`date` DATETIME NOT NULL DEFAULT current_timestamp(),
+	PRIMARY KEY (`no`) USING BTREE,
+	INDEX `FK_tb_comment_tb_simpleboard` (`postNo`) USING BTREE,
+	INDEX `FK_tb_comment_tb_member` (`userid`, `username`) USING BTREE,
+	CONSTRAINT `FK_tb_comment_tb_member` FOREIGN KEY (`userid`, `username`) REFERENCES `simpleboard`.`tb_member` (`id`, `name`) ON UPDATE CASCADE ON DELETE SET NULL,
+	CONSTRAINT `FK_tb_comment_tb_simpleboard` FOREIGN KEY (`postNo`) REFERENCES `simpleboard`.`tb_simpleboard` (`no`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+-- COLLATE='utf8_general_ci'
+-- ENGINE=InnoDB
+-- AUTO_INCREMENT=21
+;
+```
+
+<br>
+
+---
+
 
 ## Setting
 ### Server

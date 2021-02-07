@@ -13,6 +13,12 @@ import sw.simpleBoard.dto.SelectPostEntity;
 import sw.util.MyUtil;
 
 public class SimpleBoardDao {
+	/**
+	 * 특정 게시글 삭제하기
+	 * @param conn
+	 * @param postNo
+	 * @throws Exception
+	 */
 	public void deletePost(Connection conn, String postNo) throws Exception {
 		// 모든 게시글 불러옴. 내용은 불러오지 않음
 		String query = "DELETE FROM `simpleboard`.`tb_simpleboard` WHERE  `no`=?";
@@ -36,8 +42,14 @@ public class SimpleBoardDao {
 		}
 	}
 
+	/**
+	 * 특정 게시글 불러오기
+	 * @param conn
+	 * @param postNo
+	 * @return
+	 * @throws Exception
+	 */
 	public SelectPostEntity selectPost(Connection conn, String postNo) throws Exception {
-		// 모든 게시글 불러옴. 내용은 불러오지 않음
 		String query = "SELECT NO, userid, username, title, DATE, content FROM simpleboard.tb_simpleboard WHERE NO = ?";
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
@@ -71,6 +83,12 @@ public class SimpleBoardDao {
 		return ret;
 	}
 
+	/**
+	 * 게시판의 모든 게시글 불러오기
+	 * @param conn
+	 * @return
+	 * @throws Exception
+	 */
 	public List<SelectPostEntity> selectPostAll(Connection conn) throws Exception {
 		// 모든 게시글 불러옴. 내용은 불러오지 않음
 		String query = "SELECT `no`, `userid`, `title`, `date` FROM `simpleboard`.tb_simpleboard ORDER BY DATE DESC, NO DESC LIMIT 1000";

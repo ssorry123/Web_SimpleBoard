@@ -7,14 +7,42 @@ import java.sql.PreparedStatement;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import sw.member.dto.Member;
 
 public class MyUtil {
+	/**
+	 * 세션을 살펴보고 현재 로그인되어있는지 확인한다.
+	 * 
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	public static Member getLoginMember(HttpServletRequest request) throws Exception {
+		Member member = null;
+		HttpSession session = request.getSession(false);
+		if (session == null)
+			throw new Exception("세션 만료1");
+		member = (Member) session.getAttribute("member");
+		if (member == null)
+			throw new Exception("세션 만료2");
 
+		return member;
+	}
+
+	/**
+	 * alert를 실행하고 다른 페이지로 리다이렉트 한다.
+	 * @param response
+	 * @param url
+	 * @param msg
+	 * @throws Exception
+	 */
 	public static void alertAndSendRedirect(HttpServletResponse response, String url, String msg) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 
 		String str = String.format("<script>alert('%s'); location.href='%s';</script>", msg, url);
-		
+
 		PrintWriter out = response.getWriter();
 		out.println(str);
 		out.flush();
