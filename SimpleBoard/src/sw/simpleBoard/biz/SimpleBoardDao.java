@@ -15,7 +15,7 @@ import sw.util.MyUtil;
 public class SimpleBoardDao {
 	public SelectPostEntity selectPost(Connection conn, String postNo) throws Exception {
 		// 모든 게시글 불러옴. 내용은 불러오지 않음
-		String query = "SELECT NO, userid, title, DATE, content FROM simpleboard.tb_simpleboard WHERE NO = ?";
+		String query = "SELECT NO, userid, username, title, DATE, content FROM simpleboard.tb_simpleboard WHERE NO = ?";
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		SelectPostEntity ret = null;
@@ -28,9 +28,10 @@ public class SimpleBoardDao {
 				ret = new SelectPostEntity();
 				ret.setNo(rset.getString(1));
 				ret.setUserId(rset.getString(2));
-				ret.setTitle(rset.getString(3));
-				ret.setDateTime(rset.getString(4));
-				ret.setContent(rset.getString(5));
+				ret.setUserName(rset.getString(3));
+				ret.setTitle(rset.getString(4));
+				ret.setDateTime(rset.getString(5));
+				ret.setContent(rset.getString(6));
 			} else {
 				throw new Exception("해당하는 게시글이 삭제되거나 문제가 있습니다.");
 			}
@@ -89,11 +90,16 @@ public class SimpleBoardDao {
 	 * @throws Exception
 	 */
 	public void insertPost(Connection conn, InsertPostEntity post) throws Exception {
-		String query = "INSERT INTO `simpleboard`.`tb_simpleboard` (`userid`, `title`, `content`) VALUES (?, ?, ?)";
+		String query = "INSERT INTO `simpleboard`.`tb_simpleboard` (`userid`, `username`, `title`, `content`) VALUES (?, ?, ?, ?)";
 		PreparedStatement stmt = null;
 
+		// 뉴라인을 <br>로 수정 후 저장
+		String content = post.getContent().replace("\n", "<br>");
+		post.setContent(content);
+		
 		try {
-			stmt = MyUtil.setQuery(conn, query, post.getUserId(), post.getTitle(), post.getContent());
+			stmt = MyUtil.setQuery(conn, query, post.getUserId(), post.getUserName(), post.getTitle(),
+					post.getContent());
 			int ret = stmt.executeUpdate();
 
 			if (ret != 1)

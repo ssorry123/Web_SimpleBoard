@@ -21,18 +21,19 @@
 				<th>글 번호</th>
 				<td>${post.no }</td>
 				<th>글 제목</th>
-				<td>${post.title }</td>
+				<td colspan="2">${post.title }</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
 				<td>${post.userId }</td>
+				<td>${post.userName }</td>
 				<th>작성 시각</th>
 				<td>${post.dateTime }</td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td colspan="4">${post.content }</td>
+				<td colspan="5">${post.content }</td>
 			</tr>
 		</tbody>
 		<tfoot>

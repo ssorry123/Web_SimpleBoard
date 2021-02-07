@@ -4,6 +4,7 @@ public class SelectPostEntity {
 	private String no;
 	private String title;
 	private String userId;
+	private String userName;
 	private String dateTime;
 	private String content;
 
@@ -65,6 +66,14 @@ public class SelectPostEntity {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

@@ -3,6 +3,7 @@ package sw.simpleBoard.dto;
 public class InsertPostEntity {
 	private String title;
 	private String userId;
+	private String userName;
 	private String content;
 
 	/**
@@ -42,9 +43,18 @@ public class InsertPostEntity {
 		this.content = content;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	@Override
 	public String toString() {
-		return "InsertPostEntity [title=" + title + ", userId=" + userId + ", content=" + content + "]";
+		return "InsertPostEntity [title=" + title + ", userId=" + userId + ", userName=" + userName + ", content="
+				+ content + "]";
 	}
 
 }

@@ -39,7 +39,9 @@ public class WriteServlet extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 
+			// 유저 아이디와 이름을 둘다 저장하자
 			InsertPostEntity post = new InsertPostEntity(title, member.getId(), content);
+			post.setUserName(member.getName());
 			System.out.println(post);
 			SimpleBoardBiz.insertPost(member, post);
 
