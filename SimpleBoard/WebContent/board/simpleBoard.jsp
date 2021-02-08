@@ -38,7 +38,7 @@
 				<td>sample</td>
 			</tr>
 
-			<c:forEach items="${sessionScope.posts }" var="post">
+			<c:forEach items="${posts }" var="post">
 				<tr class="post">
 					<td class="no">${post.no }</td>
 					<td><a href="<c:url value="/showOnePost?postNo=${post.no }"/>">${post.title }</a></td>

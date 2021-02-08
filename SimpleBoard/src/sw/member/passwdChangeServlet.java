@@ -39,9 +39,7 @@ public class passwdChangeServlet extends HttpServlet {
 			MemberBiz.passwdChange(member, xPasswd, newPasswd1, newPasswd2);
 			
 			MyUtil.alertAndSendRedirect(response, request.getContextPath() + "/simpleBoard", "비밀번호 수정 완료");
-//			request.getSession().setAttribute("msg", "비밀번호 수정 완료");
-//			response.sendRedirect(request.getContextPath() + "/simpleBoard");
-
+			
 		} catch (Exception e) {
 			MyUtil.catchExceptionInServlet(request, response, e);
 		}

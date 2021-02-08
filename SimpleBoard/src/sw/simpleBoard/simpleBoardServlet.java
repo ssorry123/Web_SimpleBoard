@@ -38,7 +38,7 @@ public class simpleBoardServlet extends HttpServlet {
 			
 			List<SelectPostEntity> posts = SimpleBoardBiz.selectPostAll();
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/board/SimpleBoard.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/board/simpleBoard.jsp");
 			request.setAttribute("posts", posts);
 			rd.forward(request, response);
 		} catch (Exception e) {
