@@ -23,33 +23,32 @@
 	</form>
 	<hr>
 	<div>
-		<form action="<c:url value="/showOnePost" />" method="post" id = "posts">
-			<table border="2">
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자 ID</th>
-					<th>시간</th>
-				</tr>
-				<tr>
-					<td>sample</td>
-					<td>sample</td>
-					<td>sample</td>
-					<td>sample</td>
-				</tr>
 
-				<c:forEach items="${sessionScope.posts }" var="post">
-					<tr class="post">
-						<td class="no">${post.no }</td>
-						<td>${post.title }</td>
-						<td>${post.userId }</td>
-						<td>${post.dateTime }</td>
-					</tr>
-				</c:forEach>
+		<table border="2">
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자 ID</th>
+				<th>시간</th>
+			</tr>
+			<tr>
+				<td>sample</td>
+				<td>sample</td>
+				<td>sample</td>
+				<td>sample</td>
+			</tr>
 
-			</table>
-			<input type="hidden" name="postNo" id="postNo" value="-1"/>
-		</form>
+			<c:forEach items="${sessionScope.posts }" var="post">
+				<tr class="post">
+					<td class="no">${post.no }</td>
+					<td><a href="<c:url value="/showOnePost?postNo=${post.no }"/>">${post.title }</a></td>
+					<td>${post.userId }</td>
+					<td>${post.dateTime }</td>
+				</tr>
+			</c:forEach>
+
+		</table>
+
 	</div>
 	<hr>
 	<footer>

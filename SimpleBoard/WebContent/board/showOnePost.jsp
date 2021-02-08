@@ -17,7 +17,7 @@
 	<div>
 		<button type="button" id="back">뒤로가기</button>
 		<!-- 자신이 쓴 글일경우 삭제 요청 버튼 활성화 -->
-		<c:if test="${post.userId == member.id }">
+		<c:if test="${post.userId == sessionScope.member.id }">
 			<form action="<c:url value="/delete"/>" method="post">
 				<input type="hidden" value="${post.no }" name="postNo" />
 				<button type="submit">글 삭제</button>
@@ -51,8 +51,7 @@
 	<hr>
 	<!-- 새로운 댓글 쓰는 곳 -->
 	<div>
-		<form action="<c:url value="/writeComment" />" method="post">
-			<input type="hidden" value="${post.no }" name="commentPostNo" />
+		<form action="<c:url value="/writeComment?postNo=${post.no }" />" method="post">
 			댓글 쓰기 : <input type="text" name="writeComment" required maxlength="200"/>
 			<button type="submit">댓글 작성</button>
 			<br>
@@ -62,7 +61,7 @@
 	<!-- 존재하는 댓글 -->
 	<div>
 		<table border="1">
-			<c:forEach items="${sessionScope.comments }" var="comment">
+			<c:forEach items="${comments }" var="comment">
 				<tr>
 					<td>${comment.userId }</td>
 					<td>${comment.userName }</td>
