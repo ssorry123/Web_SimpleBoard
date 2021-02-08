@@ -21,9 +21,9 @@ public class SimpleBoardBiz {
 			conn = JDBC.getConn();
 			conn.setAutoCommit(false);
 			new SimpleBoardDao().deletePost(conn, postNo);
-			conn.commit();
+			JDBC.commit(conn);
 		} catch (Exception e) {
-			conn.rollback();
+			JDBC.rollback(conn);
 			throw e;
 		} finally {
 			JDBC.close(conn);
@@ -97,9 +97,9 @@ public class SimpleBoardBiz {
 			conn.setAutoCommit(false);
 			// DAO 생성
 			new SimpleBoardDao().insertPost(conn, post);
-			conn.commit();
+			JDBC.commit(conn);
 		} catch (Exception e) {
-			conn.rollback();
+			JDBC.rollback(conn);
 			throw e;
 		} finally {
 			// 컨넥션 해제

@@ -33,10 +33,10 @@ public class MemberBiz {
 			conn.setAutoCommit(false);
 			// DAO 생성
 			new MemberDao().passwdChange(conn, member, newPasswd2);
-			conn.commit();
+			JDBC.commit(conn);
 			member.setPasswd(newPasswd2);
 		} catch (Exception e) {
-			conn.rollback();
+			JDBC.rollback(conn);
 			throw e;
 		} finally {
 			// 컨넥션 해제
@@ -61,10 +61,10 @@ public class MemberBiz {
 			conn.setAutoCommit(false);
 			// DAO 생성
 			new MemberDao().nickChange(conn, member, newNick);
-			conn.commit();
+			JDBC.commit(conn);
 			member.setName(newNick);
 		} catch (Exception e) {
-			conn.rollback();
+			JDBC.rollback(conn);
 			throw e;
 		} finally {
 			// 컨넥션 해제
@@ -88,10 +88,10 @@ public class MemberBiz {
 			conn.setAutoCommit(false);
 			// DAO 생성
 			new MemberDao().signOut(conn, member);
-			conn.commit();
+			JDBC.commit(conn);
 
 		} catch (Exception e) {
-			conn.rollback();
+			JDBC.rollback(conn);
 			throw e;
 		} finally {
 			// 컨넥션 해제
@@ -118,10 +118,10 @@ public class MemberBiz {
 			conn.setAutoCommit(false);
 			// DAO 생성
 			new MemberDao().signUp(conn, member);
-			conn.commit();
+			JDBC.commit(conn);
 
 		} catch (Exception e) {
-			conn.rollback();
+			JDBC.rollback(conn);
 			throw e;
 		} finally {
 			// 컨넥션 해제

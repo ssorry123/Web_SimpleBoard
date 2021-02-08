@@ -49,9 +49,9 @@ public class CommentBiz {
 			CommentEntity cE = new CommentEntity(member, postNo, comment);
 			new CommentDao().wrtieComment(conn, cE);
 
-			conn.commit();
+			JDBC.commit(conn);
 		} catch (Exception e) {
-			conn.rollback();
+			JDBC.rollback(conn);
 			throw e;
 		} finally {
 			JDBC.close(conn);
