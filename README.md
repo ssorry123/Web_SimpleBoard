@@ -18,6 +18,7 @@
 - java
 - js (jquery)
 - jsp & servlet (EL, JSTL)
+- ajax
 - MVC
 - DBMS(mariadb)
 - ~~CSS~~
@@ -37,12 +38,6 @@
         - DAO (DBMS)
         - DTO
 ![Screenshot](/imgs/mvc.png)
-
-<br>
-
-- make page
-    - SPA(Single Page Application) (Now)
-    - MPA(Mulit Page Application)   
 
 
 <br>
@@ -143,23 +138,24 @@ CREATE TABLE `tb_comment` (
 ## Setting
 ### Server
 - Apache Tomcat 9.0
+    - [server runtime environments] - [add] ...
 ### EL, JSTL 사용
 - <a href="https://tomcat.apache.org/download-taglibs.cgi">다운 링크</a>
-- 4개의 jar 파일 WEB-INF/lib 폴더에 넣기
+    - 4개의 jar 파일 WEB-INF/lib 폴더에 넣기
 ### Jquery
 - <a href="https://jquery.com/">다운 링크</a>
+    - WebContent/lib
+#### JSON
+- <a href="https://code.google.com/archive/p/json-simple/downloads">다운 링크</a>
+    - WEB-INF/lib 폴더에 넣기
 ### DBMS
 - MariaDB
     - 10.5.8
     - HeidiSQL
 - JDBC Driver
     - mariadb-java-client-2.6.0.jar
-        - Java Resources's Libraries 등록
-            - [Eclipse] - [ProjectName] - [BuildPath] - [Libraries] -
-            - [ClassPath] - [Add Library...] - [User Libraries...] - [Add JARs]
-        - WebContent 등록
-            - WEB-INF/lib 폴더로 드래그
-- Tomcat db connection pool 설정
+        - WEB-INF/lib 폴더에 넣기
+- Tomcat db connection pool 설정(META-INF/context.xml)
     - <a href="https://hwan2.tistory.com/entry/Servlet%EC%97%90%EC%84%9C-MariaDB-%EC%82%AC%EC%9A%A9%EC%8B%9C-Connection-Pool-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95">참고</a>
 ---
 

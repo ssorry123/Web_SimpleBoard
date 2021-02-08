@@ -8,6 +8,8 @@
 <title>SimpleBoard</title>
 <script type="text/javascript"
 	src="<c:url value="/lib/jquery-3.5.1.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/js/board/showOnePost.js"/>"></script>
 </head>
 <body>
 	<header>
@@ -19,11 +21,12 @@
 		<!-- 자신이 쓴 글일경우 삭제 요청 버튼 활성화 -->
 		<c:if test="${post.userId == sessionScope.member.id }">
 			<form action="<c:url value="/delete"/>" method="post">
-				<input type="hidden" value="${post.no }" name="postNo" />
 				<button type="submit">글 삭제</button>
 			</form>
 		</c:if>
 	</div>
+	<h3>게시글</h3>
+	<hr>
 	<div>
 		<table border="2">
 			<thead>
@@ -49,18 +52,18 @@
 		</table>
 	</div>
 	<hr>
+	<h3>댓글</h3>
+	<hr>
 	<!-- 새로운 댓글 쓰는 곳 -->
 	<div>
-		<form action="<c:url value="/writeComment?postNo=${post.no }" />" method="post">
-			댓글 쓰기 : <input type="text" name="writeComment" required maxlength="200"/>
-			<button type="submit">댓글 작성</button>
-			<br>
-		</form>
+		<input type="hidden" value="${post.no }" id="postNo" readonly /> 댓글
+		쓰기 : <input type="text" id="writedComment" required maxlength="200" />
+		<button type="button" id="ajaxBtn">댓글 작성</button>
+		<br>
 	</div>
-
 	<!-- 존재하는 댓글 -->
 	<div>
-		<table border="1">
+		<table border="1" id="commentTable">
 			<c:forEach items="${comments }" var="comment">
 				<tr>
 					<td>${comment.userId }</td>
@@ -75,14 +78,5 @@
 	<footer>
 		<%@ include file="sub/footer.jsp"%>
 	</footer>
-
-	<script type="text/javascript">
-		const contextRoot = '/SimpleBoard'
-		$(document).ready(function() {
-			$('#back').click(function() {
-				location.href = contextRoot + "/simpleBoard";
-			})
-		});
-	</script>
 </body>
 </html>
