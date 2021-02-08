@@ -30,12 +30,7 @@ public class SignOutServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			HttpSession session = request.getSession(false);
-			if (session.getAttribute("member") == null) {
-				throw new Exception("세션만료");
-			}
-
-			Member member = (Member) session.getAttribute("member");
+			Member member = MyUtil.getLoginMember(request);
 
 			// DB 삭제 시도
 			MemberBiz.signOut(member);

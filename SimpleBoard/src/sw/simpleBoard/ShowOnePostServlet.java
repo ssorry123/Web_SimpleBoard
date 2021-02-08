@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import sw.comment.biz.CommentBiz;
 import sw.comment.dto.CommentEntity;
+import sw.member.dto.Member;
 import sw.simpleBoard.biz.SimpleBoardBiz;
 import sw.simpleBoard.dto.SelectPostEntity;
 import sw.util.MyUtil;
@@ -41,6 +42,8 @@ public class ShowOnePostServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			Member member = MyUtil.getLoginMember(request);
+			
 			// 게시글 번호 불러오기
 			request.setCharacterEncoding("UTF-8");
 			String postNo = request.getParameter("postNo");

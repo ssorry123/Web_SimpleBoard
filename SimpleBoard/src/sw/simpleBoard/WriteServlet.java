@@ -29,11 +29,7 @@ public class WriteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			HttpSession session = request.getSession(false);
-			Member member = (Member) session.getAttribute("member");
-			if (member == null) {
-				throw new Exception("세션만료");
-			}
+			Member member = MyUtil.getLoginMember(request);
 
 			request.setCharacterEncoding("UTF-8");
 			String title = request.getParameter("title");
