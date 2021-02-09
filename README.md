@@ -5,10 +5,11 @@
 
 1. USING
 2. Development Design
-3. Implemented
+3. NextTodo
+4. Implemented
     - service
     - db table
-4. setting
+5. setting
 
 ---
 
@@ -21,6 +22,7 @@
 - ajax
 - MVC
 - DBMS(mariadb)
+- COS(file up/down)
 - ~~CSS~~
 
 <br>
@@ -39,6 +41,16 @@
         - DTO
 ![Screenshot](/imgs/mvc.png)
 
+
+<br>
+
+---
+
+## NextTodo
+```
+파일 업로드 구현
+게시글에 사진 기능 추가
+```
 
 <br>
 
@@ -159,5 +171,9 @@ CREATE TABLE `tb_comment` (
         - WEB-INF/lib 폴더에 넣기
 - Tomcat db connection pool 설정(META-INF/context.xml)
     - <a href="https://hwan2.tistory.com/entry/Servlet%EC%97%90%EC%84%9C-MariaDB-%EC%82%AC%EC%9A%A9%EC%8B%9C-Connection-Pool-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95">참고</a>
+### File Upload Download
+- cos.jar
+- <a href="http://servlets.com/cos/">다운 링크</a>
+    - WEB-INF/lib
 ---
 
