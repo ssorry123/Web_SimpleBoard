@@ -17,7 +17,7 @@
 
 	<form action="<c:url value="/update?postNo=${post.no }"/>"
 		method="post">
-		<input type="hidden" value="${post.userId }" name="postUserId"/> 
+		<input type="hidden" value="${post.userId }" name="postUserId" />
 		<table>
 			<tr>
 				<th>글번호</th>
@@ -35,6 +35,7 @@
 		</table>
 		<button type="submit">수정</button>
 		<button type="button" id="cancel">취소</button>
+		<input type="hidden" value="${post.no }" id="postNo" />
 	</form>
 
 
@@ -46,9 +47,13 @@
 	<script type="text/javascript">
 		const contextRoot = '/SimpleBoard'
 		$(document).ready(function() {
+			
 			$('#cancel').click(function() {
-				location.href = contextRoot + "/simpleBoard";
+				console.log("클릭");
+				let postNo = $('#postNo').val();
+				location.href = contextRoot + "/showOnePost?postNo=" + postNo;
 			})
+			
 		});
 	</script>
 </body>
