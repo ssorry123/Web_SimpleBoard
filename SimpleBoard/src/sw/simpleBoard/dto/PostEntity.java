@@ -1,6 +1,8 @@
 package sw.simpleBoard.dto;
 
-public class SelectPostEntity {
+import sw.member.dto.Member;
+
+public class PostEntity {
 	private String no;
 	private String title;
 	private String userId;
@@ -9,13 +11,30 @@ public class SelectPostEntity {
 	private String content;
 
 	/**
+	 * 글 쓰기 데이터 전달 용
+	 * 
+	 * @param title
+	 * @param content
+	 * @param member
+	 */
+	public PostEntity(String title, String content, Member member) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.userId = member.getId();
+		this.userName = member.getName();
+		no = dateTime = null;
+	}
+
+	/**
+	 * 전체 게시글 목록 보여주기용 생성자
 	 * 
 	 * @param no
 	 * @param title
 	 * @param userId
 	 * @param dateTime
 	 */
-	public SelectPostEntity(String no, String title, String userId, String dateTime) {
+	public PostEntity(String no, String title, String userId, String dateTime) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -24,7 +43,7 @@ public class SelectPostEntity {
 		this.content = null;
 	}
 
-	public SelectPostEntity() {
+	public PostEntity() {
 		// TODO Auto-generated constructor stub
 	}
 

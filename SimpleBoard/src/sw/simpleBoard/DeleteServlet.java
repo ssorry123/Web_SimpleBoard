@@ -32,6 +32,7 @@ public class DeleteServlet extends HttpServlet {
 
 			request.setCharacterEncoding("UTF-8");
 			String postNo = request.getParameter("postNo");
+			System.out.println("전달받은 글번호" + postNo);
 			SimpleBoardBiz.deletePost(postNo);
 			MyUtil.alertAndSendRedirect(response, request.getContextPath() + "/simpleBoard", "게시글이 성공적으로 삭제되었습니다.");
 

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import sw.member.dto.Member;
 import sw.simpleBoard.biz.SimpleBoardBiz;
-import sw.simpleBoard.dto.SelectPostEntity;
+import sw.simpleBoard.dto.PostEntity;
 import sw.util.MyUtil;
 
 /**
@@ -36,7 +36,7 @@ public class simpleBoardServlet extends HttpServlet {
 		try {
 			Member member = MyUtil.getLoginMember(request);
 			
-			List<SelectPostEntity> posts = SimpleBoardBiz.selectPostAll();
+			List<PostEntity> posts = SimpleBoardBiz.selectPostAll();
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/board/simpleBoard.jsp");
 			request.setAttribute("posts", posts);

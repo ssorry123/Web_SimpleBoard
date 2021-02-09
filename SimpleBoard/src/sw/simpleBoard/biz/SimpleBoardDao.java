@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sw.dbms.JDBC;
-import sw.simpleBoard.dto.InsertPostEntity;
-import sw.simpleBoard.dto.SelectPostEntity;
+import sw.simpleBoard.dto.PostEntity;
 import sw.util.MyUtil;
 
 public class SimpleBoardDao {
@@ -23,7 +22,7 @@ public class SimpleBoardDao {
 		// 모든 게시글 불러옴. 내용은 불러오지 않음
 		String query = "DELETE FROM `simpleboard`.`tb_simpleboard` WHERE  `no`=?";
 		PreparedStatement stmt = null;
-
+		System.out.println("삭제될 글 번호 " + postNo);
 		try {
 			stmt = MyUtil.setQuery(conn, query, postNo);
 			int ret = stmt.executeUpdate();
@@ -49,18 +48,18 @@ public class SimpleBoardDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public SelectPostEntity selectPost(Connection conn, String postNo) throws Exception {
+	public PostEntity selectPost(Connection conn, String postNo) throws Exception {
 		String query = "SELECT NO, userid, username, title, DATE, content FROM simpleboard.tb_simpleboard WHERE NO = ?";
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
-		SelectPostEntity ret = null;
+		PostEntity ret = null;
 
 		try {
 			stmt = MyUtil.setQuery(conn, query, postNo);
 			rset = stmt.executeQuery();
 
 			if (rset.next()) {
-				ret = new SelectPostEntity();
+				ret = new PostEntity();
 				ret.setNo(rset.getString(1));
 				ret.setUserId(rset.getString(2));
 				ret.setUserName(rset.getString(3));
@@ -89,12 +88,12 @@ public class SimpleBoardDao {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SelectPostEntity> selectPostAll(Connection conn) throws Exception {
+	public List<PostEntity> selectPostAll(Connection conn) throws Exception {
 		// 모든 게시글 불러옴. 내용은 불러오지 않음
 		String query = "SELECT `no`, `userid`, `title`, `date` FROM `simpleboard`.tb_simpleboard ORDER BY DATE DESC, NO DESC LIMIT 1000";
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
-		List<SelectPostEntity> ret = null;
+		List<PostEntity> ret = null;
 
 		try {
 			stmt = conn.prepareStatement(query);
@@ -108,7 +107,7 @@ public class SimpleBoardDao {
 				String title = rset.getString(3);
 				String date = rset.getString(4);
 
-				ret.add(new SelectPostEntity(no, title, userid, date));
+				ret.add(new PostEntity(no, title, userid, date));
 			}
 
 		} catch (Exception e) {
@@ -130,7 +129,7 @@ public class SimpleBoardDao {
 	 * @param post
 	 * @throws Exception
 	 */
-	public void insertPost(Connection conn, InsertPostEntity post) throws Exception {
+	public void insertPost(Connection conn, PostEntity post) throws Exception {
 		String query = "INSERT INTO `simpleboard`.`tb_simpleboard` (`userid`, `username`, `title`, `content`) VALUES (?, ?, ?, ?)";
 		PreparedStatement stmt = null;
 

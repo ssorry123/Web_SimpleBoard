@@ -7,11 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import sw.member.dto.Member;
 import sw.simpleBoard.biz.SimpleBoardBiz;
-import sw.simpleBoard.dto.InsertPostEntity;
+import sw.simpleBoard.dto.PostEntity;
 import sw.util.MyUtil;
 
 /**
@@ -36,8 +35,7 @@ public class WriteServlet extends HttpServlet {
 			String content = request.getParameter("content");
 
 			// 유저 아이디와 이름을 둘다 저장하자
-			InsertPostEntity post = new InsertPostEntity(title, member.getId(), content);
-			post.setUserName(member.getName());
+			PostEntity post = new PostEntity(title, content, member);
 			System.out.println(post);
 			SimpleBoardBiz.insertPost(member, post);
 

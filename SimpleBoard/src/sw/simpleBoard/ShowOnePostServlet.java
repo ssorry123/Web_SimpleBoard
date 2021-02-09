@@ -15,7 +15,7 @@ import sw.comment.biz.CommentBiz;
 import sw.comment.dto.CommentEntity;
 import sw.member.dto.Member;
 import sw.simpleBoard.biz.SimpleBoardBiz;
-import sw.simpleBoard.dto.SelectPostEntity;
+import sw.simpleBoard.dto.PostEntity;
 import sw.util.MyUtil;
 
 /**
@@ -49,7 +49,7 @@ public class ShowOnePostServlet extends HttpServlet {
 			String postNo = request.getParameter("postNo");
 			System.out.println(postNo);
 			// 게시글 불러오기
-			SelectPostEntity post = SimpleBoardBiz.selectPost(postNo);
+			PostEntity post = SimpleBoardBiz.selectPost(postNo);
 
 			// 댓글 불러오기 AJAX로 수정 예정
 			List<CommentEntity> comments = CommentBiz.getComments(postNo);

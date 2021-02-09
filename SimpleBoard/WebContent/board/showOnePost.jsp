@@ -12,15 +12,17 @@
 	src="<c:url value="/js/board/showOnePost.js"/>"></script>
 </head>
 <body>
+	
 	<header>
 		<%@ include file="sub/header.jsp"%>
+
 	</header>
 	<hr>
 	<div>
 		<button type="button" id="back">뒤로가기</button>
 		<!-- 자신이 쓴 글일경우 삭제 요청 버튼 활성화 -->
 		<c:if test="${post.userId == sessionScope.member.id }">
-			<form action="<c:url value="/delete"/>" method="post">
+			<form action="<c:url value="/delete?postNo=${post.no }"/>" method="post">
 				<button type="submit">글 삭제</button>
 			</form>
 		</c:if>
@@ -56,9 +58,9 @@
 	<hr>
 	<!-- 새로운 댓글 쓰는 곳 -->
 	<div>
-		<input type="hidden" value="${post.no }" id="postNo" readonly /> 댓글
-		쓰기 : <input type="text" id="writedComment" required maxlength="200" />
+		댓글 쓰기 : <input type="text" id="writedComment" required maxlength="200" />
 		<button type="button" id="ajaxBtn">댓글 작성</button>
+		<input type="hidden" value="${post.no }" id="postNo" readonly />
 		<br>
 	</div>
 	<!-- 존재하는 댓글 -->

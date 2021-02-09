@@ -5,8 +5,7 @@ import java.util.List;
 
 import sw.dbms.JDBC;
 import sw.member.dto.Member;
-import sw.simpleBoard.dto.InsertPostEntity;
-import sw.simpleBoard.dto.SelectPostEntity;
+import sw.simpleBoard.dto.PostEntity;
 
 public class SimpleBoardBiz {
 	/**
@@ -16,7 +15,6 @@ public class SimpleBoardBiz {
 	 */
 	public static void deletePost(String postNo) throws Exception {
 		Connection conn = null;
-		SelectPostEntity ret = null;
 		try {
 			conn = JDBC.getConn();
 			conn.setAutoCommit(false);
@@ -37,9 +35,9 @@ public class SimpleBoardBiz {
 	 * @return
 	 * @throws Exception
 	 */
-	public static SelectPostEntity selectPost(String postNo) throws Exception {
+	public static PostEntity selectPost(String postNo) throws Exception {
 		Connection conn = null;
-		SelectPostEntity ret = null;
+		PostEntity ret = null;
 		try {
 			conn = JDBC.getConn();
 			ret = new SimpleBoardDao().selectPost(conn, postNo);
@@ -58,9 +56,9 @@ public class SimpleBoardBiz {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List<SelectPostEntity> selectPostAll() throws Exception {
+	public static List<PostEntity> selectPostAll() throws Exception {
 		Connection conn = null;
-		List<SelectPostEntity> ret = null;
+		List<PostEntity> ret = null;
 
 		try {
 			// DB 컨넥션 획득
@@ -84,7 +82,7 @@ public class SimpleBoardBiz {
 	 * @param post
 	 * @throws Exception
 	 */
-	public static void insertPost(Member member, InsertPostEntity post) throws Exception {
+	public static void insertPost(Member member, PostEntity post) throws Exception {
 
 		Connection conn = null;
 		try {
