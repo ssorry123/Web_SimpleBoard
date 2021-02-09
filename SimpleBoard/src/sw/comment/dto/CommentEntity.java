@@ -1,6 +1,6 @@
 package sw.comment.dto;
 
-import sw.member.dto.Member;
+import sw.dto.entity.Member;
 
 public class CommentEntity {
 	private String postNo;

@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sw.member.dto.Member;
+import sw.dto.entity.Member;
+import sw.dto.entity.PostEntity;
 import sw.simpleBoard.biz.SimpleBoardBiz;
-import sw.simpleBoard.dto.PostEntity;
 import sw.util.MyUtil;
 
 /**

@@ -5,7 +5,7 @@ import java.util.List;
 
 import sw.comment.dto.CommentEntity;
 import sw.dbms.JDBC;
-import sw.member.dto.Member;
+import sw.dto.entity.Member;
 
 public class CommentBiz {
 

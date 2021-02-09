@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import sw.dto.entity.Member;
 import sw.member.biz.MemberBiz;
-import sw.member.dto.Member;
 import sw.util.MyUtil;
 
 /**

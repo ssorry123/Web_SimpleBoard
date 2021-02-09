@@ -13,9 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import sw.comment.biz.CommentBiz;
 import sw.comment.dto.CommentEntity;
-import sw.member.dto.Member;
+import sw.dto.entity.Member;
+import sw.dto.entity.PostEntity;
 import sw.simpleBoard.biz.SimpleBoardBiz;
-import sw.simpleBoard.dto.PostEntity;
 import sw.util.MyUtil;
 
 /**

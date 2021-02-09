@@ -4,10 +4,31 @@ import java.sql.Connection;
 import java.util.List;
 
 import sw.dbms.JDBC;
-import sw.member.dto.Member;
-import sw.simpleBoard.dto.PostEntity;
+import sw.dto.entity.Member;
+import sw.dto.entity.PostEntity;
 
 public class SimpleBoardBiz {
+
+	/**
+	 * 게시글에 해당하는 글을 수정한다
+	 * @param post
+	 * @throws Exception
+	 */
+	public static void updatePost(PostEntity post) throws Exception {
+		Connection conn = null;
+		try {
+			conn = JDBC.getConn();
+			conn.setAutoCommit(false);
+			new SimpleBoardDao().updatePost(conn, post);
+			JDBC.commit(conn);
+		} catch (Exception e) {
+			JDBC.rollback(conn);
+			throw e;
+		} finally {
+			JDBC.close(conn);
+		}
+	}
+	
 	/**
 	 * 글번호에 해당하는 글을 삭제한다.
 	 * @param postNo
@@ -86,10 +107,6 @@ public class SimpleBoardBiz {
 
 		Connection conn = null;
 		try {
-			// 무언가 조작을 하고싶다.
-			String content = post.getContent();
-			post.setContent(content);
-
 			// DB 컨넥션 획득
 			conn = JDBC.getConn();
 			conn.setAutoCommit(false);

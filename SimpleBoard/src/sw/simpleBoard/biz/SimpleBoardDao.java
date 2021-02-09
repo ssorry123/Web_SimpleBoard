@@ -4,16 +4,50 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import sw.dbms.JDBC;
-import sw.simpleBoard.dto.PostEntity;
+import sw.dto.entity.PostEntity;
 import sw.util.MyUtil;
 
 public class SimpleBoardDao {
 	/**
+	 * 게시글 수정
+	 * 
+	 * @param conn
+	 * @param post
+	 * @throws Exception
+	 */
+	public void updatePost(Connection conn, PostEntity post) throws Exception {
+		// 모든 게시글 불러옴. 내용은 불러오지 않음
+		String query = "UPDATE `simpleboard`.`tb_simpleboard` SET `title`=?, `content`=?, `newdate` = sysdate() WHERE  `no`=?";
+		PreparedStatement stmt = null;
+
+		try {
+			String postNo = post.getNo();
+			String title = post.getTitle();
+			String content = post.getContent().replace("\n", "<br>");
+
+			// db 삽입
+			stmt = MyUtil.setQuery(conn, query, title, content, postNo);
+			int ret = stmt.executeUpdate();
+
+			if (ret != 1) {
+				throw new Exception("게시글을 수정할 수 없습니다.");
+			}
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			JDBC.close(stmt);
+		}
+	}
+
+	/**
 	 * 특정 게시글 삭제하기
+	 * 
 	 * @param conn
 	 * @param postNo
 	 * @throws Exception
@@ -32,9 +66,6 @@ public class SimpleBoardDao {
 			}
 
 		} catch (Exception e) {
-			if (e instanceof SQLException) {
-				e = new SQLException("게시글을 삭제할 수 없습니다.");
-			}
 			throw e;
 		} finally {
 			JDBC.close(stmt);
@@ -43,13 +74,14 @@ public class SimpleBoardDao {
 
 	/**
 	 * 특정 게시글 불러오기
+	 * 
 	 * @param conn
 	 * @param postNo
 	 * @return
 	 * @throws Exception
 	 */
 	public PostEntity selectPost(Connection conn, String postNo) throws Exception {
-		String query = "SELECT NO, userid, username, title, DATE, content FROM simpleboard.tb_simpleboard WHERE NO = ?";
+		String query = "SELECT NO, userid, username, title, DATE, content, newdate FROM simpleboard.tb_simpleboard WHERE NO = ?";
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		PostEntity ret = null;
@@ -66,14 +98,12 @@ public class SimpleBoardDao {
 				ret.setTitle(rset.getString(4));
 				ret.setDateTime(rset.getString(5));
 				ret.setContent(rset.getString(6));
+				ret.setNewDateTime(rset.getString(7));
 			} else {
 				throw new Exception("해당하는 게시글이 삭제되거나 문제가 있습니다.");
 			}
 
 		} catch (Exception e) {
-			if (e instanceof SQLException) {
-				e = new SQLException("게시글 불러오기 실패");
-			}
 			throw e;
 		} finally {
 			JDBC.close(rset);
@@ -84,6 +114,7 @@ public class SimpleBoardDao {
 
 	/**
 	 * 게시판의 모든 게시글 불러오기
+	 * 
 	 * @param conn
 	 * @return
 	 * @throws Exception
@@ -111,9 +142,6 @@ public class SimpleBoardDao {
 			}
 
 		} catch (Exception e) {
-			if (e instanceof SQLException) {
-				e = new SQLException("게시글 불러오기 실패");
-			}
 			throw e;
 		} finally {
 			JDBC.close(rset);
@@ -146,9 +174,6 @@ public class SimpleBoardDao {
 				throw new Exception("error : 게시글 작성 실패");
 
 		} catch (Exception e) {
-			if (e instanceof SQLException) {
-				e = new SQLException("게시글 작성 실패");
-			}
 			throw e;
 		} finally {
 			JDBC.close(stmt);

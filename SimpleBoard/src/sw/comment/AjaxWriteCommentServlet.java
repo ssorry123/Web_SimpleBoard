@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import sw.comment.biz.CommentBiz;
-import sw.member.dto.Member;
+import sw.dto.entity.Member;
 import sw.util.MyUtil;
 
 /**

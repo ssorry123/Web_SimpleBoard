@@ -1,4 +1,4 @@
-package sw.member.dto;
+package sw.dto.entity;
 
 public class Member {
 	private String id;

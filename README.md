@@ -44,7 +44,7 @@
 
 ---
 
-### 구현된 목록 (2021-02-07)
+### 구현된 목록 (2021-02-09)
 - 회원 관리
     - 회원가입(signUp)
     - 회원탈퇴(signOut)
@@ -59,6 +59,7 @@
     - 특정 게시글 상세 보기(showOnePost)
     - 게시글 작성하기(writePost)
     - 자신의 게시글 삭제(deletePost)
+    - 자신의 게시글 수정(updatePost)
     - 댓글(comment)
         - 댓글 보기, 댓글 달기(writeComment)
 
@@ -66,7 +67,7 @@
 
 ---
 
-### Table 구조 (2021-02-07)
+### Table 구조 (2021-02-09)
 
 ![Screenshot](/imgs/ERD.png)
 
@@ -97,6 +98,7 @@ CREATE TABLE `tb_simpleboard` (
 	`username` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
 	`title` VARCHAR(50) NOT NULL DEFAULT 'titleEx' COLLATE 'utf8_general_ci',
 	`date` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`newdate` DATETIME NULL DEFAULT NULL,
 	`content` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8_general_ci',
 	PRIMARY KEY (`no`) USING BTREE,
 	INDEX `FK_tb_simpleboard_tb_member` (`userid`, `username`) USING BTREE,
@@ -104,8 +106,8 @@ CREATE TABLE `tb_simpleboard` (
 )
 -- COLLATE='utf8_general_ci'
 -- ENGINE=InnoDB
--- AUTO_INCREMENT=28
--- ;
+-- AUTO_INCREMENT=36
+;
 ```
 
 #### TB_COMMENT

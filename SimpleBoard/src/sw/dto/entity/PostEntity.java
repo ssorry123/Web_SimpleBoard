@@ -1,6 +1,4 @@
-package sw.simpleBoard.dto;
-
-import sw.member.dto.Member;
+package sw.dto.entity;
 
 public class PostEntity {
 	private String no;
@@ -8,6 +6,7 @@ public class PostEntity {
 	private String userId;
 	private String userName;
 	private String dateTime;
+	private String newDateTime;
 	private String content;
 
 	/**
@@ -93,6 +92,14 @@ public class PostEntity {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getNewDateTime() {
+		return newDateTime;
+	}
+
+	public void setNewDateTime(String newDateTime) {
+		this.newDateTime = newDateTime;
 	}
 
 }
