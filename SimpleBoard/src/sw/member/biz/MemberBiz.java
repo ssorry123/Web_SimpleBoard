@@ -2,8 +2,8 @@ package sw.member.biz;
 
 import java.sql.Connection;
 
-import sw.dbms.JDBC;
 import sw.dto.entity.Member;
+import sw.util.JDBC;
 
 public class MemberBiz {
 

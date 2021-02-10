@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.util.List;
 
 import sw.comment.dto.CommentEntity;
-import sw.dbms.JDBC;
 import sw.dto.entity.Member;
+import sw.util.JDBC;
 
 public class CommentBiz {
 

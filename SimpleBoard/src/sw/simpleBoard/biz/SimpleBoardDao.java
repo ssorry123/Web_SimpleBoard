@@ -8,9 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import sw.dbms.JDBC;
 import sw.dto.entity.PostEntity;
-import sw.util.MyUtil;
+import sw.util.JDBC;
 
 public class SimpleBoardDao {
 	/**
@@ -31,7 +30,7 @@ public class SimpleBoardDao {
 			String content = post.getContent().replace("\n", "<br>");
 
 			// db 삽입
-			stmt = MyUtil.setQuery(conn, query, title, content, postNo);
+			stmt = JDBC.setQuery(conn, query, title, content, postNo);
 			int ret = stmt.executeUpdate();
 
 			if (ret != 1) {
@@ -58,7 +57,7 @@ public class SimpleBoardDao {
 		PreparedStatement stmt = null;
 		System.out.println("삭제될 글 번호 " + postNo);
 		try {
-			stmt = MyUtil.setQuery(conn, query, postNo);
+			stmt = JDBC.setQuery(conn, query, postNo);
 			int ret = stmt.executeUpdate();
 
 			if (ret != 1) {
@@ -87,7 +86,7 @@ public class SimpleBoardDao {
 		PostEntity ret = null;
 
 		try {
-			stmt = MyUtil.setQuery(conn, query, postNo);
+			stmt = JDBC.setQuery(conn, query, postNo);
 			rset = stmt.executeQuery();
 
 			if (rset.next()) {
@@ -166,7 +165,7 @@ public class SimpleBoardDao {
 		post.setContent(content);
 
 		try {
-			stmt = MyUtil.setQuery(conn, query, post.getUserId(), post.getUserName(), post.getTitle(),
+			stmt = JDBC.setQuery(conn, query, post.getUserId(), post.getUserName(), post.getTitle(),
 					post.getContent());
 			int ret = stmt.executeUpdate();
 

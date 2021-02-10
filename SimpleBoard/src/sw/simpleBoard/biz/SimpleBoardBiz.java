@@ -3,9 +3,9 @@ package sw.simpleBoard.biz;
 import java.sql.Connection;
 import java.util.List;
 
-import sw.dbms.JDBC;
 import sw.dto.entity.Member;
 import sw.dto.entity.PostEntity;
+import sw.util.JDBC;
 
 public class SimpleBoardBiz {
 

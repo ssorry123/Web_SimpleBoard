@@ -5,9 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import sw.dbms.JDBC;
 import sw.dto.entity.Member;
-import sw.util.MyUtil;
+import sw.util.JDBC;
 
 public class MemberDao {
 	/**
@@ -25,7 +24,7 @@ public class MemberDao {
 		try {
 			String id = member.getId();
 
-			stmt = MyUtil.setQuery(conn, query, newPasswd, id);
+			stmt = JDBC.setQuery(conn, query, newPasswd, id);
 			int ret = stmt.executeUpdate();
 
 			if (ret != 1)
@@ -56,7 +55,7 @@ public class MemberDao {
 		try {
 			String id = member.getId();
 
-			stmt = MyUtil.setQuery(conn, query, newNick, id);
+			stmt = JDBC.setQuery(conn, query, newNick, id);
 			int ret = stmt.executeUpdate();
 
 			if (ret != 1)
@@ -86,7 +85,7 @@ public class MemberDao {
 		try {
 			String id = member.getId();
 
-			stmt = MyUtil.setQuery(conn, query, id);
+			stmt = JDBC.setQuery(conn, query, id);
 			int ret = stmt.executeUpdate();
 
 			if (ret != 1)
@@ -118,7 +117,7 @@ public class MemberDao {
 			String pw = member.getPasswd();
 			String name = member.getName();
 
-			stmt = MyUtil.setQuery(conn, query, id, pw, name);
+			stmt = JDBC.setQuery(conn, query, id, pw, name);
 			int ret = stmt.executeUpdate();
 
 			if (ret != 1)
@@ -150,7 +149,7 @@ public class MemberDao {
 
 		try {
 			// 쿼리 세팅
-			stmt = MyUtil.setQuery(conn, query, id, pw);
+			stmt = JDBC.setQuery(conn, query, id, pw);
 			// 쿼리 실행 및 결과 저장
 			rset = stmt.executeQuery();
 

@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sw.comment.dto.CommentEntity;
-import sw.dbms.JDBC;
-import sw.util.MyUtil;
+import sw.util.JDBC;
 
 public class CommentDao {
 	
@@ -22,7 +21,7 @@ public class CommentDao {
 		try {
 			ret = new ArrayList<>();
 			
-			stmt = MyUtil.setQuery(conn, query, postNo);
+			stmt = JDBC.setQuery(conn, query, postNo);
 			rset = stmt.executeQuery();
 			
 			while(rset.next()){
@@ -58,7 +57,7 @@ public class CommentDao {
 		PreparedStatement stmt = null;
 
 		try {
-			stmt = MyUtil.setQuery(conn, query, cE.getPostNo(), cE.getUserId(), cE.getUserName(), cE.getComment());
+			stmt = JDBC.setQuery(conn, query, cE.getPostNo(), cE.getUserId(), cE.getUserName(), cE.getComment());
 			int ret = stmt.executeUpdate();
 
 			if (ret != 1) {

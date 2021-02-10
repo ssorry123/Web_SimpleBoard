@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import sw.dbms.JDBC;
+import sw.util.JDBC;
 
 /**
  * DBMS 접속 관리 쿼리 처리
