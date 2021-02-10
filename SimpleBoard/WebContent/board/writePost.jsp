@@ -8,6 +8,8 @@
 <title>SimpleBoard</title>
 <script type="text/javascript"
 	src="<c:url value="/lib/jquery-3.5.1.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/js/board/writePost.js" />"></script>
 </head>
 <body>
 	<header>
@@ -35,14 +37,5 @@
 	<footer>
 		<%@ include file="sub/footer.jsp"%>
 	</footer>
-
-	<script type="text/javascript">
-		const contextRoot = '/SimpleBoard'
-		$(document).ready(function() {
-			$('#cancel').click(function() {
-				location.href = contextRoot + "/simpleBoard";
-			})
-		});
-	</script>
 </body>
 </html>
