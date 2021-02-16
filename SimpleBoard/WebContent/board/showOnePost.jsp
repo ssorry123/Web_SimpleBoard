@@ -15,7 +15,6 @@
 
 	<header>
 		<%@ include file="sub/header.jsp"%>
-
 	</header>
 	<hr>
 	<div>
@@ -36,6 +35,9 @@
 	<h3>게시글</h3>
 	<hr>
 	<div>
+		<c:if test="${!empty post.picPath }">
+			<img src="<c:url value="/${post.picPath }"/>" />
+		</c:if>
 		<table border="2">
 			<thead>
 				<tr>

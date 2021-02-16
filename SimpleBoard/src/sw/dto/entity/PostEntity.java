@@ -8,6 +8,12 @@ public class PostEntity {
 	private String dateTime;
 	private String newDateTime;
 	private String content;
+	private String picPath;
+
+	public PostEntity(Member member) {
+		this.userId = member.getId();
+		this.userName = member.getName();
+	}
 
 	/**
 	 * 글 쓰기 데이터 전달 용
@@ -40,6 +46,7 @@ public class PostEntity {
 		this.userId = userId;
 		this.dateTime = dateTime;
 		this.content = null;
+		this.picPath = null;
 	}
 
 	public PostEntity() {
@@ -100,6 +107,19 @@ public class PostEntity {
 
 	public void setNewDateTime(String newDateTime) {
 		this.newDateTime = newDateTime;
+	}
+
+	public String getPicPath() {
+		return picPath;
+	}
+
+	public void setPicPath(String picPath) {
+		this.picPath = picPath;
+	}
+
+	@Override
+	public String toString() {
+		return "PostEntity [title=" + title + ", content=" + content + ", picPath=" + picPath + "]";
 	}
 
 }

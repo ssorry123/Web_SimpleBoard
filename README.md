@@ -48,15 +48,17 @@
 
 ## NextTodo
 ```
-파일 업로드 구현
-게시글에 사진 기능 추가
+게시글 수정 시
+- 올린 사진 삭제
+- 올린 사진 수정
+- 사진 안올렸는데 올리기
 ```
 
 <br>
 
 ---
 
-### 구현된 목록 (2021-02-09)
+### 구현된 목록 (2021-02-16)
 - 회원 관리
     - 회원가입(signUp)
     - 회원탈퇴(signOut)
@@ -69,7 +71,9 @@
 - 게시글
     - 전체 게시글 목록 보기(simpleBoard)
     - 특정 게시글 상세 보기(showOnePost)
+        - 그림 한장 보기 기능
     - 게시글 작성하기(writePost)
+        - 그림 한장 올리기 기능
     - 자신의 게시글 삭제(deletePost)
     - 자신의 게시글 수정(updatePost)
     - 댓글(comment)
@@ -112,14 +116,16 @@ CREATE TABLE `tb_simpleboard` (
 	`date` DATETIME NOT NULL DEFAULT current_timestamp(),
 	`newdate` DATETIME NULL DEFAULT NULL,
 	`content` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`picPath` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
 	PRIMARY KEY (`no`) USING BTREE,
 	INDEX `FK_tb_simpleboard_tb_member` (`userid`, `username`) USING BTREE,
 	CONSTRAINT `FK_tb_simpleboard_tb_member` FOREIGN KEY (`userid`, `username`) REFERENCES `simpleboard`.`tb_member` (`id`, `name`) ON UPDATE CASCADE ON DELETE SET NULL
 )
 -- COLLATE='utf8_general_ci'
 -- ENGINE=InnoDB
--- AUTO_INCREMENT=36
+-- AUTO_INCREMENT=55
 ;
+
 ```
 
 #### TB_COMMENT
@@ -150,6 +156,8 @@ CREATE TABLE `tb_comment` (
 
 
 ## Setting
+### Encoding
+- All UTF-8
 ### Server
 - Apache Tomcat 9.0
     - [server runtime environments] - [add] ...
@@ -175,5 +183,9 @@ CREATE TABLE `tb_comment` (
 - cos.jar
 - <a href="http://servlets.com/cos/">다운 링크</a>
     - WEB-INF/lib
+### Auto Refresh After File Upload
+- 클라이언트가 서버에 이미지를 올리고 올린 사진을 확인할 때 이클립스 폴더 새로고침 해줘야함.
+- Auto
+    - [Window]-[Preferences]-[General]-[Workspace]-[Refresh using native hooks or polling]
 ---
 

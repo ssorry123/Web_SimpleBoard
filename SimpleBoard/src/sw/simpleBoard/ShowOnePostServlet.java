@@ -50,8 +50,8 @@ public class ShowOnePostServlet extends HttpServlet {
 			System.out.println(postNo);
 			// 게시글 불러오기
 			PostEntity post = SimpleBoardBiz.selectPost(postNo);
-
-			// 댓글 불러오기 AJAX로 수정 예정
+			
+			// 댓글 불러오기
 			List<CommentEntity> comments = CommentBiz.getComments(postNo);
 
 			RequestDispatcher rd = request.getRequestDispatcher("board/showOnePost.jsp");

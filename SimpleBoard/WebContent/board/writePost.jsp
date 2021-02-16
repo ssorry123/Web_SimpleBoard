@@ -16,12 +16,15 @@
 		<%@ include file="sub/header.jsp"%>
 	</header>
 	<hr>
-
-	<form action="<c:url value="/write"/>" method="post">
+		<form action="<c:url value="/write"/>" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<th>제목</th>
 				<td><input type="text" name="title" required/></td>
+			</tr>
+			<tr>
+				<th>사진(1장)</th>
+				<td><input type="file" name="file"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
@@ -31,7 +34,6 @@
 		<button type="submit">글쓰기</button>
 		<button type="button" id="cancel">취소</button>
 	</form>
-
 
 	<hr>
 	<footer>
