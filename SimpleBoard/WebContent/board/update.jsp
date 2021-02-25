@@ -8,6 +8,7 @@
 <title>SimpleBoard</title>
 <script type="text/javascript"
 	src="<c:url value="/lib/jquery-3.5.1.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/board/update.js"/>"></script>
 </head>
 <body>
 	<header>
@@ -16,8 +17,10 @@
 	<hr>
 
 	<form action="<c:url value="/update?postNo=${post.no }"/>"
-		method="post">
-		<input type="hidden" value="${post.userId }" name="postUserId" />
+		method="post" enctype="multipart/form-data">
+		<c:if test="${!empty post.picPath }">
+			<img src="<c:url value="/${post.picPath }"/>" />
+		</c:if>
 		<table>
 			<tr>
 				<th>글번호</th>
@@ -33,9 +36,10 @@
 				<td><textarea name="content" rows="10" cols="50">${post.content }</textarea></td>
 			</tr>
 		</table>
+		<input type="hidden" value="${post.userId }" name="postUserId" />
 		<button type="submit">수정</button>
-		<button type="button" id="cancel">취소</button>
 		<input type="hidden" value="${post.no }" id="postNo" />
+		<button type="button" id="cancel">취소</button>
 	</form>
 
 
@@ -44,17 +48,5 @@
 		<%@ include file="sub/footer.jsp"%>
 	</footer>
 
-	<script type="text/javascript">
-		const contextRoot = '/SimpleBoard'
-		$(document).ready(function() {
-			
-			$('#cancel').click(function() {
-				console.log("클릭");
-				let postNo = $('#postNo').val();
-				location.href = contextRoot + "/showOnePost?postNo=" + postNo;
-			})
-			
-		});
-	</script>
 </body>
 </html>

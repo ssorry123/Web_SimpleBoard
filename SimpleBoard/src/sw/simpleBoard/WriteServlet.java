@@ -46,7 +46,6 @@ public class WriteServlet extends HttpServlet {
 				folder.mkdir();
 				System.out.println("새로운 폴더 생성");
 			}
-
 			int size = 15 * 1024 * 1024; // 15mb 제한
 
 			// post 요청 받기 클래스 생성

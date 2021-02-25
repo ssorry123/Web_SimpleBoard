@@ -83,7 +83,7 @@
 
 ---
 
-### Table 구조 (2021-02-09)
+### Table 구조 (2021-02-16)
 
 ![Screenshot](/imgs/ERD.png)
 
